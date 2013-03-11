@@ -11,5 +11,5 @@ Echipa pentru actorul director:
 
 Echipa pentru actorul cadru didactic:
 
-Echipa pentru actorul public:
+Echipa pentru actorul public: Paraschiv Alexandru Nicolae, Popa Razvan-Vlad
 
