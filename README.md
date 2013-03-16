@@ -9,7 +9,7 @@ Echipa pentru actorul adminstrator: Pasca Andrada, Pescar Adrian
 
 Echipa pentru actorul director:
 
-Echipa pentru actorul cadru didactic:
+Echipa pentru actorul cadru didactic:Podea Radu-Alexandru
 
 Echipa pentru actorul public: Paraschiv Alexandru Nicolae, Popa Razvan-Vlad
 
