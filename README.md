@@ -7,7 +7,7 @@ Project Manager: Szabo Roland
 
 Echipa pentru actorul adminstrator: Pasca Andrada, Pescar Adrian
 
-Echipa pentru actorul director:
+Echipa pentru actorul director: Pop Manuel
 
 Echipa pentru actorul cadru didactic:
 
