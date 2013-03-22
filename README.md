@@ -5,7 +5,7 @@ Proiect colectiv grupa 225.
 
 Project Manager: Szabo Roland
 
-Echipa pentru actorul adminstrator: Pasca Andrada, Pescar Adrian
+Echipa pentru actorul adminstrator: Pasca Andrada, Pescar Adrian, Szekely Jonathan
 
 Echipa pentru actorul director: Pop Manuel, Pop Gabriel
 
