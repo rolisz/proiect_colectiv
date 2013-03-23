@@ -4,6 +4,9 @@ from camelot.admin.application_admin import ApplicationAdmin
 from camelot.admin.section import Section
 from camelot.core.utils import ugettext_lazy as _
 
+from programe_studiu import ProgramStudiu
+
+
 class MyApplicationAdmin(ApplicationAdmin):
   
     name = 'Resource Management System'
@@ -18,7 +21,7 @@ class MyApplicationAdmin(ApplicationAdmin):
         return [ Section( _('My classes'),
                           self,
                           Icon('tango/22x22/apps/system-users.png'),
-                          items = [] ),
+                          items = [ProgramStudiu] ),
                  Section( _('Configuration'),
                           self,
                           Icon('tango/22x22/categories/preferences-system.png'),
