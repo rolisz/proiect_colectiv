@@ -12,6 +12,12 @@ from Model.ResurseFinanciare import *
 from Model.ResurseUmane import *
 from Model.ResurseActivitate import *
 
+from Model.ProgramStudiu import ProgramStudiu
+
+
+from programe_studiu import ProgramStudiu
+
+
 class MyApplicationAdmin(ApplicationAdmin):
   
     name = 'Resource Management System'
@@ -26,8 +32,7 @@ class MyApplicationAdmin(ApplicationAdmin):
         return [ Section( _('My classes'),
                           self,
                           Icon('tango/22x22/apps/system-users.png'),
-                          items = [Activitati,Task,EchipaActivitate,MembriTask,
-                          Orar,ResurseFinanciare,ResurseUmane,FazeActivitate,ResurseActivitate] ),
+                          items = [ProgramStudiu] ),
                  Section( _('Configuration'),
                           self,
                           Icon('tango/22x22/categories/preferences-system.png'),
