@@ -12,6 +12,9 @@ from Model.ResurseFinanciare import *
 from Model.ResurseUmane import *
 from Model.ResurseActivitate import *
 
+from Model.ProgramStudiu import ProgramStudiu
+
+
 from programe_studiu import ProgramStudiu
 
 
