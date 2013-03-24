@@ -10,14 +10,14 @@ class ResurseActivitate(Entity):
 
 	__tablename__ = 'resurse_activitate'
 
-	id_activitate = Column(Integer,ForeignKey('activitati.id'))
+	id_activitate = Column(Integer,ForeignKey('activitate.id'))
 	id_resursa = Column(Integer, nullable=False)
 	tip = Column(Integer, nullable=False)
 
-	activitati = relationship('Activitati')
+	activitate = relationship('Activitate')
 
 	def __unicode__(self):
-		return self.activitati or 'Unknown'
+		return self.activitate or 'Unknown'
 
 	class Admin(EntityAdmin):
 		verbose_name = 'ResurseActivitate'

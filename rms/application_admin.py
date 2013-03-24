@@ -2,19 +2,16 @@ from camelot.view.art import Icon
 from camelot.admin.application_admin import ApplicationAdmin
 from camelot.admin.section import Section
 from camelot.core.utils import ugettext_lazy as _
-from Model.Activitati import *
+from Model.Activitate import *
 from Model.Task import *
 from Model.EchipaActivitate import *
-from Model.MembriTask import *
+from Model.MembruTask import *
 from Model.FazeActivitate import *
 from Model.Orar import *
 from Model.ResurseFinanciare import *
 from Model.ResurseUmane import *
 from Model.ResurseActivitate import *
-
 from Model.ProgramStudiu import ProgramStudiu
-
-
 
 class MyApplicationAdmin(ApplicationAdmin):
   
