@@ -1,8 +1,15 @@
-
 from camelot.view.art import Icon
 from camelot.admin.application_admin import ApplicationAdmin
 from camelot.admin.section import Section
 from camelot.core.utils import ugettext_lazy as _
+from Model.Activitati import *
+from Model.ActivitatiGranturi import *
+from Model.EchipaActivitate import *
+from Model.FazeActivitate import *
+from Model.Orar import *
+from Model.ProgrameStudiu import *
+from Model.ResurseFinanciare import *
+from Model.ResurseUmane import *
 
 class MyApplicationAdmin(ApplicationAdmin):
   
@@ -18,7 +25,7 @@ class MyApplicationAdmin(ApplicationAdmin):
         return [ Section( _('My classes'),
                           self,
                           Icon('tango/22x22/apps/system-users.png'),
-                          items = [] ),
+                          items = [Activitati,ActivitatiGranturi,EchipaActivitate,FazeActivitate,ProgrameStudiu,ResurseFinanciare,ResurseUmane,MembriActivitate] ),
                  Section( _('Configuration'),
                           self,
                           Icon('tango/22x22/categories/preferences-system.png'),
