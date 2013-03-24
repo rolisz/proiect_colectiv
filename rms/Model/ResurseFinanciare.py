@@ -12,10 +12,12 @@ class ResurseFinanciare( Entity ):
 
 	valoare = Column(Integer, primary_key=True)
 	tip = Column(Boolean,nullable=False)
+	categorie = Column(Unicode(30),nullable=False)
 
 	def __unicode__(self):
-		return self.stuff or 'Unknown'
+		return self.categorie + str(self.valoare if self.tip else -self.valoare) or 'Unknown'
 
 	class Admin(EntityAdmin):
 		verbose_name = 'ResurseFinanciare'
-		list_display = ['valoare','tip']
+		verbose_name_plural = 'ResurseFinanciare'
+		list_display = ['valoare','tip','categorie']

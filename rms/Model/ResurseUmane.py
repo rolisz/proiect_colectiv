@@ -10,14 +10,16 @@ class ResurseUmane(Entity):
 
     __tablename__ = 'resurse_umane'
 
-    username = Column(Unicode(30), primary_key=True)
+    username = Column(Unicode(30))
     nume = Column(Unicode(50), nullable=False)
     doctorat = Column(Boolean, nullable=False)
     functie = Column(Unicode(30), nullable=True)
-
+    echipa_activitate = relationship('EchipaActivitate')
+    membri_task = relationship('MembriTask')
     def __unicode__(self):
-        return self.name or 'Unknown'
+        return self.echipa_activitate or 'Unknown'
         
     class Admin(EntityAdmin):
         verbose_name = 'ResurseUmane'
-        list_display = ['username', 'name','doctorat','functie']
+        verbose_name_plural ='ResurseUmane'
+        list_display = ['username', 'nume','doctorat','functie']

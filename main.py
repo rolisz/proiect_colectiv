@@ -11,9 +11,9 @@ class MySettings( SimpleSettings ):
     # add an ENGINE or a CAMELOT_MEDIA_ROOT method here to connect
     # to another database or change the location where files are stored
     #
-    # def ENGINE( self ):
-    #     from sqlalchemy import create_engine
-    #     return create_engine( 'postgresql://user:passwd@127.0.0.1/database' )
+    def ENGINE( self ):
+        from sqlalchemy import create_engine
+        return create_engine( 'sqlite:///model-data.sqlite' )
     
     def setup_model( self ):
         """This function will be called at application startup, it is used to 

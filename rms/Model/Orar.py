@@ -20,8 +20,9 @@ class Orar(Entity):
 	disciplina = Column(Unicode(30), nullable=False)
 
 	def __unicode__(self):
-		return self.stuff or 'Unknown'
+		return self.sala or 'Unknown'
 
 	class Admin(EntityAdmin):
 		verbose_name = 'Orar'
+		verbose_name_plural = 'Orar'
 		list_display = ['zi','ora','frecventa','sala','anul','formatia','tip','disciplina']

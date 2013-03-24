@@ -21,4 +21,5 @@ class ProgrameStudiu(Entity):
 
 	class Admin(EntityAdmin):
 		verbose_name = 'ProgrameStudiu'
+		verbose_name_plural = 'ProgrameStudiu'
 		list_display = ['nivel','sectie','durata','credite','descriere']
