@@ -15,7 +15,7 @@ class ResurseUmane(Entity):
     doctorat = Column(Boolean, nullable=False)
     functie = Column(Unicode(30), nullable=True)
     echipa_activitate = relationship('EchipaActivitate')
-    membri_task = relationship('MembriTask')
+    membru_task = relationship('MembruTask')
     def __unicode__(self):
         return self.echipa_activitate or 'Unknown'
         

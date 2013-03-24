@@ -6,9 +6,9 @@ from sqlalchemy import Unicode, Date, Integer, Boolean
 from sqlalchemy.orm import relationship
 from sqlalchemy.schema import ForeignKey
 
-class Activitati(Entity):
+class Activitate(Entity):
 
-	__tablename__ = 'activitati'
+	__tablename__ = 'activitate'
 
 	id_coordonator = Column(Integer,nullable=False)
 	tip = Column(Integer, nullable=False)
@@ -22,6 +22,6 @@ class Activitati(Entity):
 		return self.echipa_activitate or 'Unknown'
 
 	class Admin(EntityAdmin):
-		verbose_name = 'Activitati'
+		verbose_name = 'Activitate'
 		verbose_name_plural = 'Activitati'
 		list_display = ['id_coordonator','tip','aprobata']
