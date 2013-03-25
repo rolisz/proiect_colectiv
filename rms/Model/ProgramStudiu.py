@@ -27,6 +27,6 @@ class ProgramStudiu(Entity):
         verbose_name_plural = 'Programe Studiu'
         list_display = ['nivel','sectie','durata','credite','descriere']
         field_attributes = {'nivel':{'choices': lambda o:[(1, 'Licenta'),(2, 'Master')]},
-                            'credite':{'minimum':0,'maximum':30},
-                            'durata':{'choices': lambda o:[(1, '1'),(2, '2'),(3,'3'),(4,'4')]}}
+                            'credite':{'minimum':0,'maximum':180},
+                            'durata':{'choices': lambda o:[(1, '1'),(2, '2'),(3, '3'),(4, '4'),(5, '5'),(6, '6')]}}
                    
