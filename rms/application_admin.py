@@ -15,8 +15,6 @@ from Model.ResurseActivitate import *
 from Model.ProgramStudiu import ProgramStudiu
 
 
-from programe_studiu import ProgramStudiu
-
 
 class MyApplicationAdmin(ApplicationAdmin):
   
