@@ -8,7 +8,7 @@ from sqlalchemy.schema import ForeignKey
 
 class Activitate(Entity):
 
-	__tablename__ = 'activitate'
+	__tablename__ = 'activitati'
 
 	id_coordonator = Column(Integer,nullable=False)
 	tip = Column(Integer, nullable=False)

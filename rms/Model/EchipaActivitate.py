@@ -8,7 +8,7 @@ from sqlalchemy.schema import ForeignKey
 
 class EchipaActivitate(Entity):
 
-	__tablename__ = 'echipa_activitate'
+	__tablename__ = 'echipe_activitati'
 
 	id_activitate = Column(Integer, ForeignKey('activitate.id'))
 	id_membru = Column(Integer,ForeignKey('resurse_umane.id'))

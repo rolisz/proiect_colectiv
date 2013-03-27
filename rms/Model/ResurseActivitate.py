@@ -8,7 +8,7 @@ from sqlalchemy.schema import ForeignKey
 
 class ResurseActivitate(Entity):
 
-	__tablename__ = 'resurse_activitate'
+	__tablename__ = 'resurse_activitati'
 
 	id_activitate = Column(Integer,ForeignKey('activitate.id'))
 	id_resursa = Column(Integer, nullable=False)

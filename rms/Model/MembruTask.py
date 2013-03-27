@@ -8,7 +8,7 @@ from sqlalchemy.schema import ForeignKey
 
 class MembruTask(Entity):
 
-	__tablename__ = 'membru_task'
+	__tablename__ = 'membri_taskuri'
 
 	id_task = Column(Integer, ForeignKey('task.id'))
 	id_membru = Column(Integer,ForeignKey('resurse_umane.id'))
@@ -19,5 +19,5 @@ class MembruTask(Entity):
 
 	class Admin(EntityAdmin):
 		verbose_name = 'MembruTask'
-		verbose_name_plural = 'MembriTask'
+		verbose_name_plural = 'MembriTaskuri'
 		list_display = ['id_task','id_membru']
