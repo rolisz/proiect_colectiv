@@ -8,18 +8,18 @@ from sqlalchemy.schema import ForeignKey
 
 class EchipaActivitate(Entity):
 
-	__tablename__ = 'echipa_activitate'
+	__tablename__ = 'echipe_activitati'
 
-	id_activitate = Column(Integer, ForeignKey('activitati.id'))
+	id_activitate = Column(Integer, ForeignKey('activitate.id'))
 	id_membru = Column(Integer,ForeignKey('resurse_umane.id'))
 
-	activitati = relationship('Activitati')
+	activitate = relationship('Activitate')
 	resurse = relationship('ResurseUmane')
 
 	def __unicode__(self):
-		return self.activitati or 'Unknown'
+		return self.activitate or 'Unknown'
 
 	class Admin(EntityAdmin):
 		verbose_name = 'EchipaActivitate'
-		verbose_name_plural = 'EchipaActivitate'
+		verbose_name_plural = 'EchipeActivitati'
 		list_display = ['id_activitate','id_membru']
