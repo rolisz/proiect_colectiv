@@ -8,12 +8,12 @@ from sqlalchemy.schema import ForeignKey
 
 class EchipaActivitate(Entity):
 
-	__tablename__ = 'echipe_activitati'
+	__tablename__ = 'echipa_activitati'
 
-	id_activitate = Column(Integer, ForeignKey('activitate.id'))
+	id_activitate = Column(Integer, ForeignKey('activitati.id'))
 	id_membru = Column(Integer,ForeignKey('resurse_umane.id'))
 
-	activitate = relationship('Activitate')
+	activitati = relationship('Activitate')
 	resurse = relationship('ResurseUmane')
 
 	def __unicode__(self):

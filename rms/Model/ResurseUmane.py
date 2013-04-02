@@ -17,8 +17,7 @@ class ResurseUmane(Entity):
     echipa_activitate = relationship('EchipaActivitate')
     membru_task = relationship('MembruTask')
     def __unicode__(self):
-        return self.echipa_activitate or 'Unknown'
-        
+        return self.echipa_activitate or 'Unknown'   
     class Admin(EntityAdmin):
         verbose_name = 'ResurseUmane'
         verbose_name_plural ='ResurseUmane'

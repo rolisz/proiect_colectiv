@@ -10,7 +10,7 @@ class MembruTask(Entity):
 
 	__tablename__ = 'membri_taskuri'
 
-	id_task = Column(Integer, ForeignKey('task.id'))
+	id_task = Column(Integer, ForeignKey('taskuri.id'))
 	id_membru = Column(Integer,ForeignKey('resurse_umane.id'))
 	task = relationship('Task')
 	resurse_umane = relationship('ResurseUmane')

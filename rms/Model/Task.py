@@ -10,12 +10,12 @@ class Task(Entity):
 
 	__tablename__ = 'taskuri'
 
-	id_faza = Column(Integer,ForeignKey('faze_activitate.id'))
+	id_faza = Column(Integer,ForeignKey('faze_activitati.id'))
 	nume = Column(Unicode(30), nullable=False)
 	descriere = Column(Unicode(200), nullable=False)
 	desfasurat = Column(Boolean, nullable=False)
 	faze_activitate = relationship('FazeActivitate')
-	membru_task = relationship('MembruTask')
+	membri_task = relationship('MembruTask')
 	def __unicode__(self):
 		return self.faze_activitate or 'Unknown'
 

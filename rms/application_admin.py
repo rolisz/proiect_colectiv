@@ -12,6 +12,10 @@ from Model.ResurseFinanciare import *
 from Model.ResurseUmane import *
 from Model.ResurseActivitate import *
 from Model.ProgramStudiu import ProgramStudiu
+from Public.ResurseDepartament import *
+from Public.ProiecteDepartament import *
+from Public.CalendarActivitati import *
+
 
 class MyApplicationAdmin(ApplicationAdmin):
   
@@ -24,13 +28,22 @@ class MyApplicationAdmin(ApplicationAdmin):
     def get_sections(self):
         from camelot.model.memento import Memento
         from camelot.model.i18n import Translation
-        return [ Section( _('My classes'),
+        return [ Section( _('Caracteristici publice'),
                           self,
                           Icon('tango/22x22/apps/system-users.png'),
-                          items = [ProgramStudiu] ),
-                 Section( _('Configuration'),
+                          items = [ResurseDepartament, ProiecteDepartament, CalendarActivitati] ),
+                 Section( _('Caracteristici administrative'),
                           self,
-                          Icon('tango/22x22/categories/preferences-system.png'),
-                          items = [Memento, Translation] )
+                          Icon('tango/22x22/apps/system-users.png'),
+                          items = [] ),
+                 Section( _('Caracteristici pentru directorul de departament'),
+                          self,
+                          Icon('tango/22x22/apps/system-users.png'),
+                          items = [] ),
+                 Section( _('Caracteristici pentru cadre didactice'),
+                          self,
+                          Icon('tango/22x22/apps/system-users.png'),
+                          items = [] ),
+
                 ]
     
