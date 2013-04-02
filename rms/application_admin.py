@@ -37,7 +37,7 @@ class MyApplicationAdmin(ApplicationAdmin):
                  Section( _('Caracteristici pentru directorul de departament'),
                           self,
                           Icon('tango/22x22/apps/system-users.png'),
-                          items = [] ),
+                          items = [ProgramStudiu] ),
                  Section( _('Caracteristici pentru cadre didactice'),
                           self,
                           Icon('tango/22x22/apps/system-users.png'),
