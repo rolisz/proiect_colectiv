@@ -6,22 +6,23 @@ from sqlalchemy import Unicode, Date, Integer, Boolean
 from sqlalchemy.orm import relationship
 from sqlalchemy.schema import ForeignKey
 
+
 class FazeActivitate(Entity):
+    __tablename__ = 'faze_activitati'
 
-	__tablename__ = 'faze_activitati'
+    id_activitate = Column(Integer, ForeignKey('activitati.id'))
+    nume = Column(Unicode(30))
+    descriere = Column(Unicode(200))
+    data_inceput = Column(Date)
+    data_sfarsit = Column(Date)
 
-	id_activitate = Column(Integer,ForeignKey('activitati.id'))
-	nume = Column(Unicode(30), nullable=False)
-	descriere = Column(Unicode(200), nullable=False)
-	data_inceput = Column(Date,nullable=False)
-	data_sfarsit = Column(Date,nullable=False)
-	
-	task = relationship('Task')
-	activitati = relationship('Activitate')
-	def __unicode__(self):
-		return self.task or 'Unknown'
+    task = relationship('Task')
+    activitate = relationship('Activitate')
 
-	class Admin(EntityAdmin):
-		verbose_name = 'FazeActivitate'
-		verbose_name_plural = 'FazeActivitati'
-		list_display = ['id_activitate','nume','descriere','data_inceput','data_sfarsit']
+    def __unicode__(self):
+        return self.task or 'Unknown'
+
+    class Admin(EntityAdmin):
+        verbose_name = 'FazeActivitate'
+        verbose_name_plural = 'FazeActivitati'
+        list_display = ['activitate', 'nume', 'descriere', 'data_inceput', 'data_sfarsit']

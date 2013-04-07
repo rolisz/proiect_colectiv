@@ -38,7 +38,8 @@ setup(
                        },
         'wininst_cloud':{ 'excludes':'excludes.txt',
                           'uuid':'a47f2fad-cec0-4834-ab0a-03d2e1239d49', },
-    }, 
+    },
+    requires = ['sqlalchemy', 'camelot'],
 
   )
 
