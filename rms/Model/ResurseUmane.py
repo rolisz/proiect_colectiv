@@ -6,19 +6,19 @@ from sqlalchemy import Unicode, Date, Integer, Boolean
 from sqlalchemy.orm import relationship
 from sqlalchemy.schema import ForeignKey
 
-class ResurseUmane(Entity):
 
+class ResurseUmane(Entity):
     __tablename__ = 'resurse_umane'
 
     username = Column(Unicode(30))
-    nume = Column(Unicode(50), nullable=False)
-    doctorat = Column(Boolean, nullable=False)
-    functie = Column(Unicode(30), nullable=True)
-    echipa_activitate = relationship('EchipaActivitate')
-    membru_task = relationship('MembruTask')
+    nume = Column(Unicode(50))
+    doctorat = Column(Boolean)
+    functie = Column(Unicode(30))
+
     def __unicode__(self):
-        return self.echipa_activitate or 'Unknown'   
+        return self.nume or 'Unknown'
+
     class Admin(EntityAdmin):
         verbose_name = 'ResurseUmane'
-        verbose_name_plural ='ResurseUmane'
-        list_display = ['username', 'nume','doctorat','functie']
+        verbose_name_plural = 'ResurseUmane'
+        list_display = ['username', 'nume', 'doctorat', 'functie']

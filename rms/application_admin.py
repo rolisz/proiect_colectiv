@@ -16,32 +16,28 @@ from Public.ResurseDepartament import *
 from Public.ProiecteDepartament import *
 from Public.CalendarActivitati import *
 class MyApplicationAdmin(ApplicationAdmin):
-  
     name = 'Resource Management System'
     application_url = 'https://github.com/rolisz/proiect_colectiv'
     help_url = 'https://github.com/rolisz/proiect_colectiv/wiki'
     author = 'Roland'
     domain = 'http://github.com'
-    
+
     def get_sections(self):
-        from camelot.model.memento import Memento
-        from camelot.model.i18n import Translation
-        return [ Section( _('Caracteristici publice'),
-                          self,
-                          Icon('tango/22x22/apps/system-users.png'),
-                          items = [ResurseDepartament, ProiecteDepartament, CalendarActivitati] ),
-                 Section( _('Caracteristici administrative'),
-                          self,
-                          Icon('tango/22x22/apps/system-users.png'),
-                          items = [] ),
-                 Section( _('Caracteristici pentru directorul de departament'),
-                          self,
-                          Icon('tango/22x22/apps/system-users.png'),
-                          items = [ProgramStudiu] ),
-                 Section( _('Caracteristici pentru cadre didactice'),
-                          self,
-                          Icon('tango/22x22/apps/system-users.png'),
-                          items = [] ),
+        return [Section(_('Caracteristici publice'),
+                        self,
+                        Icon('tango/22x22/apps/system-users.png'),
+                        items=[Activitate]),
+                Section(_('Caracteristici administrative'),
+                        self,
+                        Icon('tango/22x22/apps/system-users.png'),
+                        items=[]),
+                Section(_('Caracteristici pentru directorul de departament'),
+                        self,
+                        Icon('tango/22x22/apps/system-users.png'),
+                        items=[ProgramStudiu]),
+                Section(_('Caracteristici pentru cadre didactice'),
+                        self,
+                        Icon('tango/22x22/apps/system-users.png'),
+                        items=[]),
 
                 ]
-    
