@@ -15,8 +15,6 @@ from Model.ProgramStudiu import ProgramStudiu
 from Public.ResurseDepartament import *
 from Public.ProiecteDepartament import *
 from Public.CalendarActivitati import *
-
-
 class MyApplicationAdmin(ApplicationAdmin):
     name = 'Resource Management System'
     application_url = 'https://github.com/rolisz/proiect_colectiv'
