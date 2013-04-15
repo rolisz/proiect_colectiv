@@ -12,9 +12,9 @@ from Model.ResurseFinanciare import *
 from Model.ResurseUmane import *
 from Model.ResurseActivitate import *
 from Model.ProgramStudiu import ProgramStudiu
-from Public.ResurseDepartament import *
-from Public.ProiecteDepartament import *
-from Public.CalendarActivitati import *
+from rms.Views.import_orar import ImportOrar
+
+
 class MyApplicationAdmin(ApplicationAdmin):
     name = 'Resource Management System'
     application_url = 'https://github.com/rolisz/proiect_colectiv'
@@ -26,7 +26,8 @@ class MyApplicationAdmin(ApplicationAdmin):
         return [Section(_('Caracteristici publice'),
                         self,
                         Icon('tango/22x22/apps/system-users.png'),
-                        items=[Activitate, ResurseUmane, Granturi,FiltrareActivitatiAction()]),
+                        items=[Activitate, ResurseUmane, Granturi,FiltrareActivitatiAction(),
+                               ImportOrar(),Orar]),
                 Section(_('Caracteristici administrative'),
                         self,
                         Icon('tango/22x22/apps/system-users.png'),
