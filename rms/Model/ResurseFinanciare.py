@@ -11,29 +11,27 @@ from sqlalchemy.schema import ForeignKey
 class ResurseFinanciare(Entity):
     __tablename__ = 'resurse_financiare'
 
-    valoare = Column(Integer)
-    tip =  Column('type',String(10))
-    categorie = Column(Unicode(30))
+    tip = Column('type',String(10))
+    valoare = Column(Integer, nullable=False, default=0)
+    categorie =  Column(Unicode(50))
     __mapper_args__ = {
         'polymorphic_on': tip,
         }
 
     def __unicode__(self):
-        return self.categorie + str(self.valoare if self.tip else -self.valoare) or 'Unknown'
+        return self.categorie or 'Unknown'
 
     class Admin(EntityAdmin):
         verbose_name = 'ResurseFinanciare'
         verbose_name_plural = 'ResurseFinanciare'
-        list_display = ['valoare', 'categorie']
-
-        def get_query(self):
-            session = Session
-            return session.query(ResurseFinanciare).filter_by(tip='venituri')
-
+        list_display = ['tip','valoare', 'categorie']
+        form_display = ['tip','valoare', 'categorie']
+        field_attributes = {'valoare': {'minimum': 0, 'maximum': 50000}
+                            }
     class Admin2(EntityAdmin):
         verbose_name = 'ResurseFinanciare'
         verbose_name_plural = 'ResurseFinanciare'
-        list_display = ['valoare', 'categorie']
+        list_display = ['tip','valoare', 'categorie']
 
 
         def get_query(self):
@@ -50,7 +48,8 @@ class Venituri(ResurseFinanciare):
     class Admin(EntityAdmin):
         verbose_name = 'Venituri'
         verbose_name_plural = 'Venituri'
-        list_display = ['valoare', 'categorie']
+        list_display = ['tip','valoare', 'categorie']
+        form_display = ['tip','valoare', 'categorie']
 
 
 class Cheltuieli(ResurseFinanciare):
@@ -60,9 +59,10 @@ class Cheltuieli(ResurseFinanciare):
         'polymorphic_identity': 'Cheltuieli'
     }
 
-    class Admin2(EntityAdmin):
+    class Admin(EntityAdmin):
         verbose_name = 'Cheltuieli'
         verbose_name_plural = 'Cheltuieli'
-        list_display = ['valoare', 'categorie']
+        list_display = ['tip','valoare', 'categorie']
+        form_display = ['tip','valoare', 'categorie']
 
 
