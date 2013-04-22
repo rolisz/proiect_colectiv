@@ -28,7 +28,7 @@ class MyApplicationAdmin(ApplicationAdmin):
         return [Section(_('Caracteristici publice'),
                         self,
                         Icon('tango/22x22/apps/system-users.png'),
-                        items=[Activitate]),
+                        items=[Activitate, ResurseUmane, Granturi,FiltrareActivitatiAction(),ResurseFinanciare]),
                 Section(_('Caracteristici administrative'),
                         self,
                         Icon('tango/22x22/apps/system-users.png'),
@@ -41,5 +41,4 @@ class MyApplicationAdmin(ApplicationAdmin):
                         self,
                         Icon('tango/22x22/apps/system-users.png'),
                         items=[]),
-
                 ]

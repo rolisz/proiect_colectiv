@@ -28,7 +28,8 @@ class MySettings( SimpleSettings ):
         configure_mappers()
         metadata.create_all()
 
-my_settings = MySettings( 'Roland', 'Resource Management System' ) 
+my_settings = MySettings( 'Roland', 'Resource Management System' )
+
 settings.append( my_settings )
 # end custom settings
 
