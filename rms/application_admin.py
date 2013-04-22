@@ -12,9 +12,10 @@ from Model.ResurseFinanciare import *
 from Model.ResurseUmane import *
 from Model.ResurseActivitate import *
 from Model.ProgramStudiu import ProgramStudiu
-from Public.ResurseDepartament import *
-from Public.ProiecteDepartament import *
-from Public.CalendarActivitati import *
+from rms.Model.OreSuplimentare import OreSuplimentare
+from rms.Model.Discipline import Discipline
+from rms.Views.import_orar import ImportOrar
+from rms.Views.import_state import ImportState
 
 
 class MyApplicationAdmin(ApplicationAdmin):
@@ -28,7 +29,8 @@ class MyApplicationAdmin(ApplicationAdmin):
         return [Section(_('Caracteristici publice'),
                         self,
                         Icon('tango/22x22/apps/system-users.png'),
-                        items=[Activitate, ResurseUmane, Granturi,FiltrareActivitatiAction(),ResurseFinanciare]),
+                        items=[Activitate, ResurseUmane, Granturi,FiltrareActivitatiAction(),
+                               ImportOrar(),Orar,OreSuplimentare,Discipline, ImportState(),ResurseFinanciare]),
                 Section(_('Caracteristici administrative'),
                         self,
                         Icon('tango/22x22/apps/system-users.png'),
