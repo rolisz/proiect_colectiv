@@ -3,54 +3,41 @@ from camelot.admin.action import Action, ActionStep
 from camelot.admin.not_editable_admin import not_editable_admin
 from camelot.core.sql import metadata
 from camelot.view.controls.tableview import TableView
+from camelot.view.forms import TabForm, Form
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.schema import Column
 from camelot.admin.entity_admin import EntityAdmin
-from camelot.core.orm import Entity, ManyToMany, using_options, Session
+from camelot.core.orm import Entity, ManyToMany, using_options, Session, OneToMany, ManyToOne, Field
 from sqlalchemy import Unicode, Date, Integer, Boolean, String
 from sqlalchemy.orm import relationship
 from sqlalchemy.schema import ForeignKey
+from rms.Model.ResurseUmane import ResurseUmane
 
 
 class Activitate(Entity):
     __tablename__ = 'activitati'
 
-    id_coordonator = Column(Integer, ForeignKey('resurse_umane.id'))
-    nume = Column(Unicode(50))
-    coordonator = relationship('ResurseUmane')
-    tip = Column('type',String(10))
+    tip = Column(String(30))
+    __mapper_args__ = {'polymorphic_on': tip}
 
+    nume = Field(Unicode(50), required=True, index=True)
+    coordonator = ManyToOne('ResurseUmane', inverse='activitati_coordonate')
+    membrii = ManyToMany('ResurseUmane')
     aprobata = Column(Boolean)
-
-    echipa_activitate = relationship('EchipaActivitate')
-    faze_activitate = relationship('FazeActivitate')
-    resurse_activitate = relationship('ResurseActivitate')
-
-    __mapper_args__ = {
-        'polymorphic_on': tip,
-    }
-
+    #todo adaugat faze activitate
     def __unicode__(self):
-        return self.echipa_activitate or 'Unknown'
+        return self.nume or ''
 
     class Admin(EntityAdmin):
         verbose_name = 'Activitate'
         verbose_name_plural = 'Activitati'
-        list_display = ['coordonator', 'tip', 'aprobata', 'echipa_activitate',
-                        'faze_activitate']
+        list_display = ['nume']
+        form_display = TabForm([( 'Basic', Form(['nume', 'coordonator']) ),
+                                ( 'Employment', Form(['membrii']) ),
+                               # ( 'Corporate', Form(['directors']) ),
+        ])
+        field_attributes = dict(ResurseUmane.Admin.field_attributes)
 
-        form_display = ['coordonator', 'tip']
-
-
-    # Cum se creaza un view separat care contine doar anumite obiecte
-    class Admin2(EntityAdmin):
-        verbose_name = 'Activitate'
-        verbose_name_plural = 'Activitati'
-        list_display = ['coordonator', 'tip', 'aprobata', 'echipa_activitate']
-
-        def get_query(self):
-            session = Session
-            return session.query(Activitate).filter_by(tip='cerc')
 
 
 # subclasa care contine doar granturi
@@ -78,13 +65,10 @@ class Cercuri(Activitate):
         'polymorphic_identity': 'cerc'
     }
 
-    class Admin(EntityAdmin):
+    class Admin(Activitate.Admin):
         verbose_name = 'Cerc'
         verbose_name_plural = 'Cercuri'
-        list_display = ['coordonator', 'tip', 'aprobata', 'echipa_activitate',
-                        'faze_activitate']
 
-        form_display = ['coordonator', 'tip']
 
 
 # chestiile necesare pentru a face viewuri custom

@@ -7,7 +7,7 @@ from sqlalchemy import Unicode, Date, Integer, Boolean, String
 from sqlalchemy.orm import relationship
 from sqlalchemy.schema import ForeignKey
 
-
+#todo dropdown pt categorii
 class ResurseFinanciare(Entity):
     __tablename__ = 'resurse_financiare'
 
