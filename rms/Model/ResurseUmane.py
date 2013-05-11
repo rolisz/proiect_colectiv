@@ -16,6 +16,8 @@ class ResurseUmane(Entity):
 
     activitati = ManyToMany('Activitate')
     activitati_coordonate = OneToMany('Activitate')
+
+    taskuri = OneToMany("Task", inverse="membrii")
     __mapper_args__ = {
         'polymorphic_on': functie,
     }
@@ -51,13 +53,13 @@ class Profesor(ResurseUmane):
     den_functie = Column(String(20))
     titular = Column(Boolean())
 
-    def __init__(self, poz=None, den_post=None, nume=None, den_functie=None, titular=None):
-        if poz:
-            self.den_post = den_post
-            self.nume = nume
-            self.den_functie = den_functie
-            self.titular = titular == 'Tit'
-            #super(ResurseUmane).__init__()
+    # def __init__(self, poz=None, den_post=None, nume=None, den_functie=None, titular=None):
+    #     if poz:
+    #         self.den_post = den_post
+    #         self.nume = nume
+    #         self.den_functie = den_functie
+    #         self.titular = titular == 'Tit'
+    #         #super(ResurseUmane).__init__()
 
     __mapper_args__ = {
         'polymorphic_identity': 'Profesor'

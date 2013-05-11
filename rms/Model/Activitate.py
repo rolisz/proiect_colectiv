@@ -24,6 +24,8 @@ class Activitate(Entity):
     coordonator = ManyToOne('ResurseUmane', inverse='activitati_coordonate')
     membrii = ManyToMany('ResurseUmane')
     aprobata = Column(Boolean)
+    res_fin = OneToMany('ResurseFinanciare', inverse="activitate")
+    res_logistice = ManyToMany('ResursaLogistica')
     #todo adaugat faze activitate
     def __unicode__(self):
         return self.nume or ''
@@ -32,12 +34,11 @@ class Activitate(Entity):
         verbose_name = 'Activitate'
         verbose_name_plural = 'Activitati'
         list_display = ['nume']
-        form_display = TabForm([( 'Basic', Form(['nume', 'coordonator']) ),
-                                ( 'Employment', Form(['membrii']) ),
-                               # ( 'Corporate', Form(['directors']) ),
+        form_display = TabForm([('Importante', Form(['nume', 'coordonator'])),
+                                ('Participanti', Form(['membrii'])),
+                                ('Resurse', Form(['res_fin', 'res_logistice'])),
         ])
         field_attributes = dict(ResurseUmane.Admin.field_attributes)
-
 
 
 # subclasa care contine doar granturi
@@ -57,7 +58,6 @@ class Granturi(Activitate):
         form_display = ['coordonator', 'tip']
 
 
-
 class Cercuri(Activitate):
     __tablename__ = None
 
@@ -70,7 +70,6 @@ class Cercuri(Activitate):
         verbose_name_plural = 'Cercuri'
 
 
-
 # chestiile necesare pentru a face viewuri custom
 class FiltrareActivitatiAction(Action):
     verbose_name = "Filtare activitati"
@@ -80,7 +79,6 @@ class FiltrareActivitatiAction(Action):
 
 
 class FiltrareActivitatiGUI(ActionStep):
-
     def __init__(self):
         pass
 

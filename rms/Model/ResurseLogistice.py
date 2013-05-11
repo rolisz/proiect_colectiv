@@ -1,3 +1,4 @@
+from camelot.admin.entity_admin import EntityAdmin
 from camelot.core.orm import Entity
 from sqlalchemy import Column, Integer, String, ForeignKey
 
@@ -15,6 +16,11 @@ class ResursaLogistica(Entity):
         'polymorphic_on': type
     }
 
+    class Admin(EntityAdmin):
+        verbose_name = 'Resursa'
+        verbose_name_plural = 'Resurse'
+        list_display = ['type']
+
 
 class Sala(ResursaLogistica):
     __tablename__ = 'sali'
@@ -28,6 +34,10 @@ class Sala(ResursaLogistica):
         'polymorphic_identity': 'sala',
     }
 
+    class Admin(EntityAdmin):
+        verbose_name = 'Sala'
+        verbose_name_plural = 'Sali'
+        list_display = ['nr_locuri', 'nume']
 
 class Echipament(ResursaLogistica):
     __tablename__ = 'echipamente'
@@ -40,3 +50,8 @@ class Echipament(ResursaLogistica):
     __mapper_args__ = {
         'polymorphic_identity': 'echipament',
     }
+
+    class Admin(EntityAdmin):
+        verbose_name = 'Echipament'
+        verbose_name_plural = 'Echipamente'
+        list_display = ['tip', 'cantitate']
