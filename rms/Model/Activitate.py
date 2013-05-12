@@ -11,8 +11,35 @@ from camelot.core.orm import Entity, ManyToMany, using_options, Session, OneToMa
 from sqlalchemy import Unicode, Date, Integer, Boolean, String
 from sqlalchemy.orm import relationship
 from sqlalchemy.schema import ForeignKey
+import rms
 from rms.Model.ResurseUmane import ResurseUmane
 
+class RapoarteActivitati(Action):
+    verbose_name = "Rapoarte folosire activitati"
+
+    def model_run(self, model_context):
+        from camelot.view.action_steps import PrintHtml
+        import datetime
+        import os
+        from jinja import Environment, FileSystemLoader
+        from pkg_resources import resource_filename
+
+        fileloader = FileSystemLoader(resource_filename(rms.__name__, 'templates'))
+        e = Environment(loader=fileloader)
+        activitate = model_context.get_object()
+        context = {
+            'header': activitate.nume,
+            'title': 'Raport activitate',
+            'style': '.label { font-weight:bold; }',
+            'coordonator': activitate.coordonator,
+            'aprobata': activitate.aprobata,
+            'membrii': activitate.membrii,
+            'res_fin': activitate.res_fin,
+            'res_log': activitate.res_logistice,
+            'footer': str(datetime.datetime.now().year)
+        }
+        t = e.get_template('activitate.html')
+        yield PrintHtml(t.render(context))
 
 class Activitate(Entity):
     __tablename__ = 'activitati'
@@ -39,6 +66,7 @@ class Activitate(Entity):
                                 ('Resurse', Form(['res_fin', 'res_logistice'])),
         ])
         field_attributes = dict(ResurseUmane.Admin.field_attributes)
+        form_actions = [RapoarteActivitati()]
 
 
 # subclasa care contine doar granturi
@@ -86,3 +114,5 @@ class FiltrareActivitatiGUI(ActionStep):
         gui_context.workspace._tab_widget.clear()
         activi_table = Activitate.Admin2(gui_context.admin, Activitate).create_table_view(gui_context)
         gui_context.workspace._tab_widget.addTab(activi_table, "Filtrare")
+
+

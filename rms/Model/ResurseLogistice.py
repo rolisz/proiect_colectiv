@@ -34,6 +34,9 @@ class Sala(ResursaLogistica):
         'polymorphic_identity': 'sala',
     }
 
+    def __unicode__(self):
+        return self.nume + str(self.nr_locuri)
+
     class Admin(EntityAdmin):
         verbose_name = 'Sala'
         verbose_name_plural = 'Sali'
@@ -50,6 +53,9 @@ class Echipament(ResursaLogistica):
     __mapper_args__ = {
         'polymorphic_identity': 'echipament',
     }
+
+    def __unicode__(self):
+        return self.tip + str(self.cantitate)
 
     class Admin(EntityAdmin):
         verbose_name = 'Echipament'
