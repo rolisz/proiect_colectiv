@@ -29,7 +29,7 @@ class MyApplicationAdmin(ApplicationAdmin):
         return [Section(_('Caracteristici publice'),
                         self,
                         Icon('tango/22x22/apps/system-users.png'),
-                        items=[Activitate, ResurseUmane, Granturi,ResurseFinanciare, ResursaLogistica]),
+                        items=[Activitate, ResurseUmane, Granturi,ResurseFinanciare, ResursaLogistica,CalendarActivitatiAction(), ProgramStudiu, ImportOrar()]),
                 Section(_('Caracteristici administrative'),
                         self,
                         Icon('tango/22x22/apps/system-users.png'),

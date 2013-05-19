@@ -68,6 +68,15 @@ class Activitate(Entity):
         field_attributes = dict(ResurseUmane.Admin.field_attributes)
         form_actions = [RapoarteActivitati()]
 
+    class Admin2(EntityAdmin):
+        verbose_name = 'Calendar activitati'
+        list_display = ['nume', 'coordonator', 'aprobata']
+
+        def get_query(self):
+            session = Session
+            return session.query(Activitate).join(ResurseUmane).filter(ResurseUmane.id==1) # todo schimbat cu userul
+                                                                                           # curent
+
 
 # subclasa care contine doar granturi
 class Granturi(Activitate):
@@ -99,20 +108,20 @@ class Cercuri(Activitate):
 
 
 # chestiile necesare pentru a face viewuri custom
-class FiltrareActivitatiAction(Action):
-    verbose_name = "Filtare activitati"
+class CalendarActivitatiAction(Action):
+    verbose_name = "Calendar activitati"
 
     def model_run(self, model_context):
-        yield FiltrareActivitatiGUI()
+        yield CalendarActivitatiGUI()
 
 
-class FiltrareActivitatiGUI(ActionStep):
+class CalendarActivitatiGUI(ActionStep):
     def __init__(self):
         pass
 
     def gui_run(self, gui_context):
         gui_context.workspace._tab_widget.clear()
         activi_table = Activitate.Admin2(gui_context.admin, Activitate).create_table_view(gui_context)
-        gui_context.workspace._tab_widget.addTab(activi_table, "Filtrare")
+        gui_context.workspace._tab_widget.addTab(activi_table, "Calendar activitate")
 
 
