@@ -4,17 +4,18 @@ from camelot.admin.section import Section
 from camelot.core.utils import ugettext_lazy as _
 from Model.Activitate import *
 from Model.Task import *
-from Model.EchipaActivitate import *
-from Model.MembruTask import *
 from Model.FazeActivitate import *
 from Model.Orar import *
 from Model.ResurseFinanciare import *
+from Model.ResurseLogistice import *
 from Model.ResurseUmane import *
 from Model.ResurseActivitate import *
-from Views.ObtineResurseDepartament import *
-from Views.ObtineProiecteDepartament import *
 from Model.ProgramStudiu import ProgramStudiu
+from rms.Model import ResurseLogistice
+from rms.Model.OreSuplimentare import OreSuplimentare
+from rms.Model.Discipline import Discipline
 from rms.Views.import_orar import ImportOrar
+from rms.Views.import_state import ImportState
 
 
 class MyApplicationAdmin(ApplicationAdmin):
@@ -28,8 +29,7 @@ class MyApplicationAdmin(ApplicationAdmin):
         return [Section(_('Caracteristici publice'),
                         self,
                         Icon('tango/22x22/apps/system-users.png'),
-                        items=[Activitate, ResurseFinanciare, Granturi,FiltrareActivitatiAction(),
-                               ImportOrar(),Orar,ObtineResurseDepartament(),ObtineProiecteDepartament()]),
+                        items=[Activitate, ResurseUmane, Granturi,ResurseFinanciare, ResursaLogistica]),
                 Section(_('Caracteristici administrative'),
                         self,
                         Icon('tango/22x22/apps/system-users.png'),
@@ -42,5 +42,4 @@ class MyApplicationAdmin(ApplicationAdmin):
                         self,
                         Icon('tango/22x22/apps/system-users.png'),
                         items=[]),
-
                 ]

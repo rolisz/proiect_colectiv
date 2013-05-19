@@ -31,7 +31,7 @@ class ObtineProiecteDepartamentGUI(ActionStep):
 
     def gui_run( self, gui_context ):
         gui_context.workspace._tab_widget.clear()
-        proiecte_table = ProiecteDepartament.Admin(gui_context.admin,Activitate).create_table_view(gui_context)
+        proiecte_table = ProiecteDepartament.Admin(gui_context.admin, Activitate).create_table_view(gui_context)
         proiecte_table.setObjectName('proiecte_table')
 
         gui_context.workspace._tab_widget.addTab(proiecte_table, "Proiecte Departament")
