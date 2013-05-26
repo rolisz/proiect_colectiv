@@ -16,7 +16,8 @@ from rms.Model.OreSuplimentare import OreSuplimentare
 from rms.Model.Discipline import Discipline
 from rms.Views.import_orar import ImportOrar
 from rms.Views.import_state import ImportState
-
+from rms.Views.ObtineResurseDepartament import ObtineResurseDepartament
+from rms.Views.ObtineProiecteDepartament import ObtineProiecteDepartament
 
 class MyApplicationAdmin(ApplicationAdmin):
     name = 'Resource Management System'
@@ -29,7 +30,7 @@ class MyApplicationAdmin(ApplicationAdmin):
         return [Section(_('Caracteristici publice'),
                         self,
                         Icon('tango/22x22/apps/system-users.png'),
-                        items=[Activitate, ResurseUmane, Granturi,ResurseFinanciare, ResursaLogistica]),
+                        items=[Activitate, ResurseUmane, Granturi,ResurseFinanciare, ResursaLogistica, ObtineResurseDepartament(), ObtineProiecteDepartament()]),
                 Section(_('Caracteristici administrative'),
                         self,
                         Icon('tango/22x22/apps/system-users.png'),
