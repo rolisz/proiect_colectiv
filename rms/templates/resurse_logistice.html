@@ -20,24 +20,10 @@ body, html {
 </table>
 <hr>
 <h2 id="page_title"><center>{{ title }}</center></h2>
-<span class="label">Coordonator:</span> {{ coordonator }}<br>
-<span class="label">Aprobata:</span> {{ aprobata }}<br>
-<span class="label">Membrii:</span><br>
+<span class="legend">Resursa este folosita de catre:</span>
 <ul>
-{% for membru in membrii %}
-  <li>{{ membru.nume }}</li>
-{% endfor %}
-</ul>
-<span class="label">Resurse financiare:</span><br>
-<ul>
-{% for res in res_fin %}
-  <li>{{ res.valoare }} - {{ res.categorie }}</li>
-{% endfor %}
-</ul>
-<span class="label">Resurse logistice:</span><br>
-<ul>
-{% for res in res_log %}
-  <li>{{ res }}</li>
+{% for activitate in activitati %}
+  <li>{{ activitate.nume }}, coordonator {{ activitate.coordonator.nume }}</li>
 {% endfor %}
 </ul>
 <div id="page_footer">{{ footer }}</div>

@@ -1,8 +1,34 @@
+from camelot.admin.action import Action
 from camelot.admin.entity_admin import EntityAdmin
-from camelot.core.orm import Entity
+from camelot.core.orm import Entity, ManyToMany
 from sqlalchemy import Column, Integer, String, ForeignKey
+import rms
 
 __author__ = 'Roland'
+
+
+class RaportResurse(Action):
+    verbose_name = "Rapoarte folosire resurse"
+
+    def model_run(self, model_context):
+        from camelot.view.action_steps import PrintHtml
+        import datetime
+        import os
+        from jinja import Environment, FileSystemLoader
+        from pkg_resources import resource_filename
+
+        fileloader = FileSystemLoader(resource_filename(rms.__name__, 'templates'))
+        e = Environment(loader=fileloader)
+        resursa = model_context.get_object()
+        context = {
+            'header': resursa.nume,
+            'title': 'Raport resurse',
+            'style': '.label { font-weight:bold; }',
+            'activitati': resursa.activitati,
+            'footer': str(datetime.datetime.now().year)
+        }
+        t = e.get_template('resurse_logistice.html')
+        yield PrintHtml(t.render(context))
 
 
 class ResursaLogistica(Entity):
@@ -11,6 +37,7 @@ class ResursaLogistica(Entity):
     id = Column(Integer, primary_key=True)
     type = Column(String(50))
 
+    activitati = ManyToMany('Activitate')
     __mapper_args__ = {
         'polymorphic_identity': 'resursa',
         'polymorphic_on': type
@@ -20,6 +47,7 @@ class ResursaLogistica(Entity):
         verbose_name = 'Resursa'
         verbose_name_plural = 'Resurse'
         list_display = ['type']
+        form_actions = [RaportResurse()]
 
 
 class Sala(ResursaLogistica):
@@ -35,7 +63,7 @@ class Sala(ResursaLogistica):
     }
 
     def __unicode__(self):
-        return self.nume + str(self.nr_locuri)
+        return self.nume + " " + str(self.nr_locuri)
 
     class Admin(EntityAdmin):
         verbose_name = 'Sala'
@@ -50,12 +78,16 @@ class Echipament(ResursaLogistica):
     tip = Column(String(20))
     cantitate = Column(Integer)
 
+    @property
+    def nume(self):
+        return self.tip
+
     __mapper_args__ = {
         'polymorphic_identity': 'echipament',
     }
 
     def __unicode__(self):
-        return self.tip + str(self.cantitate)
+        return self.tip + " " + str(self.cantitate)
 
     class Admin(EntityAdmin):
         verbose_name = 'Echipament'
