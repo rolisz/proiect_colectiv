@@ -80,10 +80,8 @@ class Activitate(Entity):
         verbose_name = 'Proiecte Departament'
         list_display = ['nume', 'coordonator', 'aprobata', 'tip']
 
-        def get_query(self):
-            session = Session
-            return session.query(Activitate).join(ResurseUmane)
     Admin3 = not_editable_admin(Admin3)
+
 # subclasa care contine doar granturi
 class Granturi(Activitate):
     __tablename__ = None

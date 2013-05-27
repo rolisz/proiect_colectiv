@@ -33,9 +33,7 @@ class ResurseFinanciare(Entity):
         verbose_name = 'Resurse Financiare'
         verbose_name_plural = 'Resurse Financiare'
         list_display = ['valoare', 'tip', 'categorie']
-        def get_query(self):
-            session = Session
-            return session.query(ResurseFinanciare)
+
     Admin2 = not_editable_admin(Admin2)
 
 

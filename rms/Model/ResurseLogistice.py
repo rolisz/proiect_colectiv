@@ -54,11 +54,9 @@ class ResursaLogistica(Entity):
         verbose_name = 'Resursa Logistica'
         verbose_name_plural = 'Resurse Logistice'
         list_display = ['id', 'type']
-        def get_query(self):
-            session = Session
-            return session.query(ResursaLogistica)
 
     Admin2 = not_editable_admin(Admin2)
+
 class Sala(ResursaLogistica):
     __tablename__ = 'sali'
 
