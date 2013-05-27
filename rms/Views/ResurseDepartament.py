@@ -3,7 +3,7 @@ from rms.Model.ResurseLogistice import ResursaLogistica
 from rms.Model.ResurseFinanciare import *
 
 class ObtineResurseDepartament(Action):
-    verbose_name = 'Obtine Resurse Departament'
+    verbose_name = 'Resurse Departament'
 
     def model_run( self, model_context):
         yield ObtineResurseDepartamentGUI()

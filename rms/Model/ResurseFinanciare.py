@@ -30,7 +30,7 @@ class ResurseFinanciare(Entity):
         }
 
     class Admin2(EntityAdmin):
-        verbose_name = 'Resurse Financiare'
+        verbose_name = 'Resursa Financiara'
         verbose_name_plural = 'Resurse Financiare'
         list_display = ['valoare', 'tip', 'categorie']
 

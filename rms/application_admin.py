@@ -15,7 +15,7 @@ from Model.ProgramStudiu import ProgramStudiu
 from rms.Model import ResurseLogistice
 from rms.Model.OreSuplimentare import OreSuplimentare
 from rms.Model.Discipline import Discipline
-from rms.Views.ObtineResurseDepartament import ObtineResurseDepartament
+from rms.Views.ResurseDepartament import ObtineResurseDepartament
 from rms.Views.import_orar import ImportOrar
 from rms.Views.import_state import ImportState
 from rms.Views.ObtineProiecteDepartament import ObtineProiecteDepartament
