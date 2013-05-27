@@ -54,16 +54,18 @@ class Activitate(Entity):
     res_fin = OneToMany('ResurseFinanciare', inverse="activitate")
     res_logistice = ManyToMany('ResursaLogistica')
     #todo adaugat faze activitate
+    faze = OneToMany("FazeActivitate")
     def __unicode__(self):
         return self.nume or ''
 
     class Admin(EntityAdmin):
         verbose_name = 'Activitate'
         verbose_name_plural = 'Activitati'
-        list_display = ['nume']
+        list_display = ['nume','aprobata']
         form_display = TabForm([('Importante', Form(['nume', 'coordonator'])),
                                 ('Participanti', Form(['membrii'])),
                                 ('Resurse', Form(['res_fin', 'res_logistice'])),
+                                ('Faze', Form(['faze']))
         ])
         field_attributes = dict(ResurseUmane.Admin.field_attributes)
         form_actions = [RapoarteActivitati()]
@@ -86,13 +88,9 @@ class Granturi(Activitate):
         'polymorphic_identity': 'grant'
     }
 
-    class Admin(EntityAdmin):
+    class Admin(Activitate.Admin):
         verbose_name = 'Grant'
         verbose_name_plural = 'Granturi'
-        list_display = ['coordonator', 'tip', 'aprobata', 'echipa_activitate',
-                        'faze_activitate']
-
-        form_display = ['coordonator', 'tip']
 
 
 class Cercuri(Activitate):
@@ -106,6 +104,7 @@ class Cercuri(Activitate):
         verbose_name = 'Cerc'
         verbose_name_plural = 'Cercuri'
 
+    #todo se adauga teme
 
 # chestiile necesare pentru a face viewuri custom
 class CalendarActivitatiAction(Action):
@@ -114,7 +113,7 @@ class CalendarActivitatiAction(Action):
     def model_run(self, model_context):
         yield CalendarActivitatiGUI()
 
-
+# todo add orar cursuri
 class CalendarActivitatiGUI(ActionStep):
     def __init__(self):
         pass

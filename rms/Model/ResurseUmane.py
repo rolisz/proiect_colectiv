@@ -70,4 +70,32 @@ class Profesor(ResurseUmane):
         list_display = ['username', 'nume', 'doctorat', 'den_post', 'den_functie', 'titular']
 
 
+class Administrator(ResurseUmane):
+    __tablename__ = None
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'Administrator'
+    }
+
+    class Admin(EntityAdmin):
+        verbose_name = 'Administrator'
+        verbose_name_plural = 'Administratori'
+        list_display = ['username', 'nume']
+
+
+
+class Director(ResurseUmane):
+    __tablename__ = None
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'Director'
+    }
+
+    class Admin(EntityAdmin):
+        verbose_name = 'Director'
+        verbose_name_plural = 'Directori'
+        list_display = ['username', 'nume']
+
 #todo adaugat alte tipuri de resurse umane gen om de serivic, secretara, etc
+
+#todo cadru auxiliar

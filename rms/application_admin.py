@@ -1,3 +1,4 @@
+from camelot import model
 from camelot.view.art import Icon
 from camelot.admin.application_admin import ApplicationAdmin
 from camelot.admin.section import Section
@@ -26,20 +27,30 @@ class MyApplicationAdmin(ApplicationAdmin):
     domain = 'http://github.com'
 
     def get_sections(self):
-        return [Section(_('Caracteristici publice'),
-                        self,
-                        Icon('tango/22x22/apps/system-users.png'),
-                        items=[Activitate, ResurseUmane, Granturi,ResurseFinanciare, ResursaLogistica,CalendarActivitatiAction(), ProgramStudiu, ImportOrar()]),
-                Section(_('Caracteristici administrative'),
-                        self,
-                        Icon('tango/22x22/apps/system-users.png'),
-                        items=[]),
-                Section(_('Caracteristici pentru directorul de departament'),
-                        self,
-                        Icon('tango/22x22/apps/system-users.png'),
-                        items=[ProgramStudiu]),
-                Section(_('Caracteristici pentru cadre didactice'),
-                        self,
-                        Icon('tango/22x22/apps/system-users.png'),
-                        items=[]),
-                ]
+        print(model.authentication.get_current_authentication().username)
+        session = Session
+        user = session.query(ResurseUmane).filter(
+            ResurseUmane.username == model.authentication.get_current_authentication().username).first()
+        sectii = []
+        if user is None or user.functie == 'Student':
+            return [Section(_('Caracteristici publice'),
+                            self,
+                            Icon('tango/22x22/apps/system-users.png'),
+                            items=[Activitate, ResurseUmane, Granturi, ResurseFinanciare, ResursaLogistica,
+                                   CalendarActivitatiAction(), ProgramStudiu, ImportOrar()])]
+        if user.functie == 'Administrator':
+            return [Section(_('Caracteristici administrative'),
+                            self,
+                            Icon('tango/22x22/apps/system-users.png'),
+                            items=[])]
+        if user.functie == 'Profesor':
+            return [Section(_('Caracteristici pentru directorul de departament'),
+                            self,
+                            Icon('tango/22x22/apps/system-users.png'),
+                            items=[ProgramStudiu])]
+        if user.functie == 'Director':
+            return [Section(_('Caracteristici pentru cadre didactice'),
+                            self,
+                            Icon('tango/22x22/apps/system-users.png'),
+                            items=[])]
+

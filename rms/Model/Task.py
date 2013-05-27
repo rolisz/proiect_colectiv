@@ -10,11 +10,10 @@ from sqlalchemy.schema import ForeignKey
 class Task(Entity):
     __tablename__ = 'taskuri'
 
-    id_faza = Column(Integer, ForeignKey('faze_activitati.id'))
-    nume = Column(Unicode(30), nullable=False)
-    descriere = Column(Unicode(200), nullable=False)
-    desfasurat = Column(Boolean, nullable=False)
-    faze_activitate = relationship('FazeActivitate')
+    nume = Column(Unicode(30))
+    descriere = Column(Unicode(200))
+    aprobat = Column(Boolean)
+    faze_activitate = ManyToOne('FazeActivitate')
     membrii = ManyToOne("ResurseUmane", inverse="taskuri")
 
     def __unicode__(self):
@@ -23,4 +22,5 @@ class Task(Entity):
     class Admin(EntityAdmin):
         verbose_name = 'Task'
         verbose_name_plural = 'Taskuri'
-        list_display = ['id', 'id_faza', 'nume', 'descriere']
+        list_display = ['nume', 'descriere', 'aprobat']
+        form_display = ['nume', 'descriere']
