@@ -1,13 +1,5 @@
-from camelot.admin.entity_admin import EntityAdmin
 from camelot.admin.action import Action, ActionStep
-from camelot.admin import table
-from camelot.core.orm import Entity,Session
-from camelot.view import forms
-from sqlalchemy.schema import Column
-from camelot.core.utils import ugettext_lazy as _
-from sqlalchemy import Unicode, Integer, Boolean
 from rms.Model.ResurseLogistice import ResursaLogistica
-from rms.Model.ResurseUmane import *
 from rms.Model.ResurseFinanciare import *
 
 class ObtineResurseDepartament(Action):
@@ -17,7 +9,6 @@ class ObtineResurseDepartament(Action):
         yield ObtineResurseDepartamentGUI()
 
 class ObtineResurseDepartamentGUI(ActionStep):
-
     def __init__(self):
         pass
 
