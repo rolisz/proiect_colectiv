@@ -1,4 +1,5 @@
 from camelot import model
+from camelot.admin.action import OpenTableView
 from camelot.view.art import Icon
 from camelot.admin.application_admin import ApplicationAdmin
 from camelot.admin.section import Section
@@ -15,6 +16,7 @@ from Model.ProgramStudiu import ProgramStudiu
 from rms.Model import ResurseLogistice
 from rms.Model.OreSuplimentare import OreSuplimentare
 from rms.Model.Discipline import Discipline
+from rms.Views.ResurseDepartament import ObtineResurseDepartament
 from rms.Views.import_orar import ImportOrar
 from rms.Views.import_state import ImportState
 
@@ -52,5 +54,5 @@ class MyApplicationAdmin(ApplicationAdmin):
             return [Section(_('Caracteristici pentru cadre didactice'),
                             self,
                             Icon('tango/22x22/apps/system-users.png'),
-                            items=[])]
+                            items=[Activitate, ResurseUmane, CalendarActivitatiAction()])]
 
