@@ -19,6 +19,7 @@ from rms.Model.Discipline import Discipline
 from rms.Views.ResurseDepartament import ObtineResurseDepartament
 from rms.Views.import_orar import ImportOrar
 from rms.Views.import_state import ImportState
+from rms.Views.CalendarActivitati import CalendarActivitatiAction
 
 
 class MyApplicationAdmin(ApplicationAdmin):
