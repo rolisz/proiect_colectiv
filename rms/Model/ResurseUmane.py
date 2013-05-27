@@ -1,9 +1,9 @@
+from camelot.admin.not_editable_admin import not_editable_admin
 from sqlalchemy.schema import Column
 import sqlalchemy.types
 from camelot.admin.entity_admin import EntityAdmin
 from camelot.core.orm import Entity, ManyToMany, OneToMany
 from sqlalchemy import Unicode, Date, Integer, Boolean, String
-from sqlalchemy.orm import relationship
 from sqlalchemy.schema import ForeignKey
 
 class ResurseUmane(Entity):
@@ -29,7 +29,6 @@ class ResurseUmane(Entity):
         verbose_name = 'Resurse Umane'
         verbose_name_plural = 'Resurse Umane'
         list_display = ['username', 'nume', 'doctorat', 'functie']
-
 
 class Student(ResurseUmane):
     __tablename__ = None

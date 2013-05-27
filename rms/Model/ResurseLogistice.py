@@ -1,6 +1,7 @@
 from camelot.admin.action import Action
 from camelot.admin.entity_admin import EntityAdmin
-from camelot.core.orm import Entity, ManyToMany
+from camelot.admin.not_editable_admin import not_editable_admin
+from camelot.core.orm import Entity, ManyToMany, Session
 from sqlalchemy import Column, Integer, String, ForeignKey
 import rms
 
@@ -49,7 +50,15 @@ class ResursaLogistica(Entity):
         list_display = ['type']
         form_actions = [RaportResurse()]
 
+    class Admin2(EntityAdmin):
+        verbose_name = 'Resursa Logistica'
+        verbose_name_plural = 'Resurse Logistice'
+        list_display = ['id', 'type']
+        def get_query(self):
+            session = Session
+            return session.query(ResursaLogistica)
 
+    Admin2 = not_editable_admin(Admin2)
 class Sala(ResursaLogistica):
     __tablename__ = 'sali'
 

@@ -1,4 +1,3 @@
-from PyQt4 import QtGui
 from camelot.admin.action import Action, ActionStep
 from camelot.admin.not_editable_admin import not_editable_admin
 from camelot.core.sql import metadata
@@ -77,7 +76,14 @@ class Activitate(Entity):
             return session.query(Activitate).join(ResurseUmane).filter(ResurseUmane.id==1) # todo schimbat cu userul
                                                                                            # curent
 
+    class Admin3(EntityAdmin):
+        verbose_name = 'Proiecte Departament'
+        list_display = ['nume', 'coordonator', 'aprobata', 'tip']
 
+        def get_query(self):
+            session = Session
+            return session.query(Activitate).join(ResurseUmane)
+    Admin3 = not_editable_admin(Admin3)
 # subclasa care contine doar granturi
 class Granturi(Activitate):
     __tablename__ = None
