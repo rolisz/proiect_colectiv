@@ -111,21 +111,3 @@ class Cercuri(Activitate):
 
     #todo se adauga teme
 
-# chestiile necesare pentru a face viewuri custom
-class CalendarActivitatiAction(Action):
-    verbose_name = "Calendar activitati"
-
-    def model_run(self, model_context):
-        yield CalendarActivitatiGUI()
-
-# todo add orar cursuri
-class CalendarActivitatiGUI(ActionStep):
-    def __init__(self):
-        pass
-
-    def gui_run(self, gui_context):
-        gui_context.workspace._tab_widget.clear()
-        activi_table = Activitate.Admin2(gui_context.admin, Activitate).create_table_view(gui_context)
-        gui_context.workspace._tab_widget.addTab(activi_table, "Calendar activitate")
-
-
