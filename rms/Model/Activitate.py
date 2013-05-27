@@ -77,7 +77,8 @@ class Activitate(Entity):
                                                                                            # curent
 
     class Admin3(EntityAdmin):
-        verbose_name = 'Proiecte Departament'
+        verbose_name = 'Proiect Departament'
+        verbose_name_plural = 'Proiecte Departament'
         list_display = ['nume', 'coordonator', 'aprobata', 'tip']
 
     Admin3 = not_editable_admin(Admin3)

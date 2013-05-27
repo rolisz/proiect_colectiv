@@ -1,3 +1,4 @@
+from camelot.admin.action import OpenTableView
 from camelot.view.art import Icon
 from camelot.admin.application_admin import ApplicationAdmin
 from camelot.admin.section import Section
@@ -30,7 +31,7 @@ class MyApplicationAdmin(ApplicationAdmin):
         return [Section(_('Caracteristici publice'),
                         self,
                         Icon('tango/22x22/apps/system-users.png'),
-                        items=[ObtineProiecteDepartament(),ObtineResurseDepartament(), Activitate, ResurseUmane, Granturi,ResurseFinanciare, ResursaLogistica, CalendarActivitatiAction(), ProgramStudiu, ImportOrar()]),
+                        items=[OpenTableView(Activitate.Admin3(self, Activitate)),ObtineResurseDepartament(), Activitate, ResurseUmane, Granturi,ResurseFinanciare, ResursaLogistica, CalendarActivitatiAction(), ProgramStudiu, ImportOrar()]),
                 Section(_('Caracteristici administrative'),
                         self,
                         Icon('tango/22x22/apps/system-users.png'),
