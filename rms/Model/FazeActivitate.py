@@ -30,3 +30,8 @@ class FazeActivitate(Entity):
         form_display = TabForm([('Importante', Form(['nume', 'descriere', 'data_inceput', 'data_sfarsit'])),
                                 ('Taskuri', Form(['task']))]
                                )
+    class Admin2(EntityAdmin):
+        verbose_name = 'Calendar'
+        verbose_name_plural = 'Calendar'
+        list_display = ['data_inceput','nume', 'descriere', 'data_sfarsit']
+    Admin2 = not_editable_admin(Admin2)
