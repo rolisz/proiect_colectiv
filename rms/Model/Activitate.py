@@ -80,6 +80,7 @@ class Activitate(Entity):
         verbose_name = 'Proiect Departament'
         verbose_name_plural = 'Proiecte Departament'
         list_display = ['nume', 'coordonator', 'aprobata', 'tip']
+        form_actions = [None]
 
     Admin3 = not_editable_admin(Admin3)
 

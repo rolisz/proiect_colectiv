@@ -1,6 +1,6 @@
 from camelot.admin.action import Action, ActionStep
 from rms.Model.ResurseLogistice import ResursaLogistica
-from rms.Model.ResurseFinanciare import *
+from rms.Model.ResurseUmane import ResurseUmane
 
 class ObtineResurseDepartament(Action):
     verbose_name = 'Resurse Departament'
@@ -14,9 +14,9 @@ class ObtineResurseDepartamentGUI(ActionStep):
 
     def gui_run( self, gui_context):
         gui_context.workspace._tab_widget.clear()
-        resfinanciare_table = ResurseFinanciare.Admin2(gui_context.admin,ResurseFinanciare).create_table_view(gui_context)
-        resfinanciare_table.setObjectName('resfinanciare_table')
-        resumane_table = ResursaLogistica.Admin2(gui_context.admin,ResursaLogistica).create_table_view(gui_context)
+        reslogistice_table = ResursaLogistica.Admin2(gui_context.admin, ResursaLogistica).create_table_view(gui_context)
+        reslogistice_table.setObjectName('reslogistice_table')
+        resumane_table = ResurseUmane.Admin2(gui_context.admin, ResurseUmane).create_table_view(gui_context)
         resumane_table.setObjectName('resumane_table')
-        gui_context.workspace._tab_widget.addTab(resfinanciare_table, "Resurse Financiare")
-        gui_context.workspace._tab_widget.addTab(resumane_table, "Resurse Logistice")
+        gui_context.workspace._tab_widget.addTab(reslogistice_table, "Resurse Logistice")
+        gui_context.workspace._tab_widget.addTab(resumane_table, "Resurse Umane")
