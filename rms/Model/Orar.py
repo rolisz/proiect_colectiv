@@ -57,3 +57,18 @@ class Orar(Entity):
                                           (2, 'Seminar'),
                                           (3, 'Curs')]}
         }
+    class Admin2(EntityAdmin):
+            verbose_name = 'Orar'
+            verbose_name_plural = 'Orar'
+            list_display = ['zi', 'ora', 'frecventa', 'sala', 'anul', 'formatia', 'tip', 'disciplina']
+            field_attributes = {    
+            'zi': {'choices': lambda o: [(v,k) for k,v in zile.items()]
+            },
+            'frecventa': {'choices': lambda o: [(0, 'Saptamanal'),
+                                                (1, 'Saptamana para'),
+                                                (2, 'Saptamana impara')]},
+            'tip': {'choices': lambda o: [(1, 'Laborator'),
+                                          (2, 'Seminar'),
+                                          (3, 'Curs')]}
+        }
+    Admin2 = not_editable_admin(Admin2)

@@ -2,7 +2,7 @@
 import logging
 from camelot.core.conf import settings, SimpleSettings
 from sqlalchemy.orm import Session
-from rms.Model.ResurseUmane import Profesor, Student
+from rms.Model.ResurseUmane import Profesor
 
 logging.basicConfig( level = logging.ERROR )
 logger = logging.getLogger( 'main' )
