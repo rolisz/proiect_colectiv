@@ -1,5 +1,5 @@
 from camelot import model
-from camelot.admin.action import OpenTableView
+from camelot.admin.action import OpenTableView, OpenNewView
 from camelot.view.art import Icon
 from camelot.admin.application_admin import ApplicationAdmin
 from camelot.admin.section import Section
@@ -40,7 +40,7 @@ class MyApplicationAdmin(ApplicationAdmin):
         return [Section(_('Caracteristici publice'),
                             self,
                             Icon('tango/22x22/apps/system-users.png'),
-                            items=[OpenTableView(Activitate.AdminPublic(self,Activitate)),ObtineResurseDepartament()]),
+                            items=[OpenTableView(Activitate.AdminPublic(self,Activitate)),CalendarActivitatiAction(),ObtineResurseDepartament()]),
                 Section(_('Caracteristici administrative'),
                             self,
                             Icon('tango/22x22/apps/system-users.png'),
@@ -48,7 +48,7 @@ class MyApplicationAdmin(ApplicationAdmin):
                 Section(_('Caracteristici pentru cadru didactic'),
                             self,
                             Icon('tango/22x22/apps/system-users.png'),
-                            items=[CalendarActivitatiAction(), OpenTableView(Activitate.AdminCadru(self,Activitate)), Task]),
+                            items=[CalendarActivitatiAction(), NewActivitate(Activitate.AdminCadru(self,Activitate)), NewTask(Task.AdminCadru(self,Task))]),
                 Section(_('Caracteristici pentru director'),
                             self,
                             Icon('tango/22x22/apps/system-users.png'),

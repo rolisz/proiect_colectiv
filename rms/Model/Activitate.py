@@ -1,4 +1,5 @@
 from camelot import model
+from camelot.admin.action import OpenNewView
 from camelot.admin.not_editable_admin import not_editable_admin
 from camelot.view.forms import TabForm, Form
 from sqlalchemy.schema import Column
@@ -8,6 +9,9 @@ from sqlalchemy import Unicode, Boolean, String, Text
 from rms.Model.ResurseUmane import ResurseUmane
 from rms.Views.Rapoarte import RapoarteActivitati
 
+
+class NewActivitate(OpenNewView):
+    verbose_name = 'Transmite cerere activitate noua'
 
 class Activitate(Entity):
     __tablename__ = 'activitati'
@@ -34,6 +38,7 @@ class Activitate(Entity):
         verbose_name = 'Activitate'
         verbose_name_plural = 'Activitati'
         list_display = ['nume', 'coordonator', 'aprobata', 'confidentiala']
+        list_filter = ['faze.data_inceput', 'faze.data_sfarsit']
         form_display = TabForm([('Importante', Form(['nume', 'coordonator', 'descriere', 'confidentiala'])),
                                 ('Participanti', Form(['membrii'])),
                                 ('Resurse', Form(['res_fin', 'res_logistice'])),
@@ -86,7 +91,19 @@ class Granturi(Activitate):
         verbose_name = 'Grant'
         verbose_name_plural = 'Granturi'
 
+    class AdminPublic(Activitate.AdminPublic):
+        verbose_name = 'Proiect Departament'
+        verbose_name_plural = 'Proiecte Departament'
 
+        list_display = ['nume', 'coordonator', 'descriere']
+
+        def get_query(self):
+            session = Session
+            return session.query(Granturi).filter(Granturi.confidentiala == False).filter(
+                Granturi.aprobata == True)
+
+
+    AdminPublic = not_editable_admin(AdminPublic)
 class Cercuri(Activitate):
     __tablename__ = None
 

@@ -1,9 +1,12 @@
+from camelot import model
 from camelot.admin.not_editable_admin import not_editable_admin
 from sqlalchemy.schema import Column
 import sqlalchemy.types
 from camelot.admin.entity_admin import EntityAdmin
-from camelot.core.orm import Entity, ManyToOne
+from camelot.core.orm import Entity, ManyToOne, Session
 from sqlalchemy import Unicode, Date, Integer, Boolean, String
+from rms.Model.Discipline import Discipline
+from rms.Model.ResurseUmane import ResurseUmane, Profesor
 
 zile = ['Luni', 'Marti', 'Miercuri', 'Joi', 'Vineri']
 
@@ -58,4 +61,20 @@ class Orar(Entity):
                                           (3, 'Curs')]}
         }
 
-    AdminPublic = not_editable_admin(Admin)
+    class AdminCadru(Admin):
+
+        def get_query(self):
+            session = Session
+            user = session.query(ResurseUmane).filter(
+                ResurseUmane.username == model.authentication.get_current_authentication().username).first()
+            if user is not None and user.functie == 'Profesor':
+                return session.query(Orar).join(Discipline).join(Profesor).filter(
+                    Profesor.id == user.id)
+            else:
+                return session.query(Orar)
+
+    AdminCadru = not_editable_admin(AdminCadru)
+
+    class AdminPublic(Admin):
+        list_filter = ['disciplina', 'anul', 'formatia', 'zi']
+    AdminPublic = not_editable_admin(AdminPublic)
