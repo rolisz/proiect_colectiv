@@ -1,11 +1,7 @@
 from sqlalchemy.schema import Column
 from camelot.admin.entity_admin import EntityAdmin
-from camelot.core.orm import Entity
+from camelot.core.orm import Entity, ManyToOne, OneToOne
 from sqlalchemy import Unicode, Integer, String
-from sqlalchemy.orm import relationship
-from sqlalchemy.schema import ForeignKey
-from rms.Model import ResurseUmane
-
 
 class OreSuplimentare(Entity):
     __tablename__ = 'ore_suplimentare'
@@ -19,9 +15,8 @@ class OreSuplimentare(Entity):
     indr_proiect = Column(Integer)
     lucr_control = Column(Integer)
     seminarii_cerc = Column(Integer)
-    id_profesor = Column(Integer,ForeignKey('resurse_umane.id'))
+    profesor = ManyToOne('Profesor')
 
-    profesor = relationship('ResurseUmane')
 
     def __init__(self, preg_admitere=None, comisii_absolvire=None, consultatii=None, examene=None,
                  indr_lucr_disert=None, indr_lucr_lic=None, indr_proiect=None, lucr_control=None,  seminarii_cerc=None):
@@ -37,11 +32,25 @@ class OreSuplimentare(Entity):
             self.seminarii_cerc = seminarii_cerc
 
     def __unicode__(self):
-        return self.profesor or 'Unknown'
+        return 'Ore suplimentare'
 
-    # @todo fix this
     class Admin(EntityAdmin):
-        verbose_name = 'Ore Sup'
-        verbose_name_plural = 'Ore SUp'
+        verbose_name = 'Ore Suplimentare'
+        verbose_name_plural = 'Ore Suplimentare'
         list_display = ['profesor', 'preg_admitere', 'comisii_absolvire', 'consultatii', 'examene', 'indr_lucr_disert',
+                        'indr_lucr_lic', 'indr_proiect', 'lucr_control', 'seminarii_cerc']
+        field_attributes = {
+            'preg_admitere': {'name': 'Pregatire admitere'},
+            'comisii_absolvire': {'name': 'Comisii absolvire'},
+            'consultatii': {'name': 'Ore consultatii'},
+            'examene': {'name': 'Examene'},
+            'indr_lucr_disert': {'name': 'Indrumare lucrari disertatie'},
+            'indr_lucr_lic': {'name': 'Indrumare lucrari licenta'},
+            'indr_proiect': {'name': 'Indrumare proiecte'},
+            'lucr_control': {'name': 'Lucrari de control'},
+            'seminarii_cerc': {'name': 'Seminarii cerc'}
+        }
+
+    class AdminProf(Admin):
+        list_display = ['preg_admitere', 'comisii_absolvire', 'consultatii', 'examene', 'indr_lucr_disert',
                         'indr_lucr_lic', 'indr_proiect', 'lucr_control', 'seminarii_cerc']

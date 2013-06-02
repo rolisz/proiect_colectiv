@@ -2,7 +2,7 @@
 import logging
 from camelot.core.conf import settings, SimpleSettings
 from sqlalchemy.orm import Session
-from rms.Model.ResurseUmane import Profesor
+from rms.Model.ResurseUmane import Profesor, Director
 
 logging.basicConfig( level = logging.ERROR )
 logger = logging.getLogger( 'main' )
@@ -13,8 +13,8 @@ def baga_date():
     # session = Session()
     Fixture.insert_or_update_fixture(Profesor, fixture_key = 'prof',
                             values = dict(username="tzutzu",nume="Dan Suciu", doctorat=True, den_post="Lector",titular=True))
-    Fixture.insert_or_update_fixture(Profesor, fixture_key = 'stud',
-                            values = dict(username="srir1180",nume="Szabo Roland", doctorat=False))
+    Fixture.insert_or_update_fixture(Director, fixture_key = 'director',
+                            values = dict(username="Roland",nume="Szabo Roland", doctorat=True))
 
 
 class MySettings( SimpleSettings ):

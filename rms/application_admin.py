@@ -40,24 +40,24 @@ class MyApplicationAdmin(ApplicationAdmin):
         return [Section(_('Caracteristici publice'),
                             self,
                             Icon('tango/22x22/apps/system-users.png'),
-                            items=[OpenTableView(Activitate.Admin3(self,Activitate)),ObtineResurseDepartament()]),
+                            items=[OpenTableView(Activitate.AdminPublic(self,Activitate)),ObtineResurseDepartament()]),
                 Section(_('Caracteristici administrative'),
                             self,
                             Icon('tango/22x22/apps/system-users.png'),
                             items=[ResurseUmane, ResurseFinanciare, ResursaLogistica,ImportOrar(), ImportState()]),
-                Section(_('Caracteristici pentru directorul de departament'),
+                Section(_('Caracteristici pentru cadru didactic'),
                             self,
                             Icon('tango/22x22/apps/system-users.png'),
-                            items=[CalendarActivitatiAction(), OpenTableView(Activitate.Admin2(self,Activitate)), Task]),
-                Section(_('Caracteristici pentru cadre didactice'),
+                            items=[CalendarActivitatiAction(), OpenTableView(Activitate.AdminCadru(self,Activitate)), Task]),
+                Section(_('Caracteristici pentru director'),
                             self,
                             Icon('tango/22x22/apps/system-users.png'),
-                            items=[ProgramStudiu, Activitate, Task])]
+                            items=[ProgramStudiu, Activitate, Task, ResursaLogistica, ResurseUmane])]
         if user is None or user.functie == 'Student':
             return [Section(_('Caracteristici publice'),
                             self,
                             Icon('tango/22x22/apps/system-users.png'),
-                            items=[OpenTableView(Activitate.Admin3(self,Activitate)),ObtineResurseDepartament])]
+                            items=[OpenTableView(Activitate.AdminPublic(self,Activitate)),ObtineResurseDepartament])]
         if user.functie == 'Administrator':
             return [Section(_('Caracteristici administrative'),
                             self,
@@ -67,7 +67,7 @@ class MyApplicationAdmin(ApplicationAdmin):
             return [Section(_('Caracteristici pentru cadre didactice'),
                             self,
                             Icon('tango/22x22/apps/system-users.png'),
-                            items=[CalendarActivitatiAction(), OpenTableView(Activitate.Admin2(self,Activitate)), Task])]
+                            items=[CalendarActivitatiAction(), OpenTableView(Activitate.AdminCadru(self,Activitate)), Task])]
         if user.functie == 'Director':
             return [Section(_('Caracteristici pentru  directorul de departament'),
                             self,

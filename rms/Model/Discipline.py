@@ -1,11 +1,7 @@
 from sqlalchemy.schema import Column
 from camelot.admin.entity_admin import EntityAdmin
-from camelot.core.orm import Entity
+from camelot.core.orm import Entity, ManyToOne, OneToMany, ManyToMany
 from sqlalchemy import Unicode, Integer, String
-from sqlalchemy.orm import relationship
-from sqlalchemy.schema import ForeignKey
-from rms.Model import ResurseUmane
-
 
 class Discipline(Entity):
     __tablename__ = 'discipline'
@@ -19,9 +15,10 @@ class Discipline(Entity):
     curs_sem2 = Column(Integer)
     sem_sem2 = Column(Integer)
     lab_sem2 = Column(Integer)
-    id_titular = Column(Integer, ForeignKey('resurse_umane.id'))
+    titular = ManyToOne('Profesor')
+    orar = OneToMany('Orar')
+    programe_studii = ManyToOne('ProgramStudiu')
 
-    profesor = relationship('ResurseUmane')
 
     def __init__(self, disc=None, sectia=None, anul=None, curs_sem1=None,
                  sem_sem1=None, lab_sem1=None, curs_sem2=None, sem_sem2=None,
@@ -44,4 +41,22 @@ class Discipline(Entity):
         verbose_name = 'Disciplina'
         verbose_name_plural = 'Discipline'
         list_display = ['disc', 'sectia', 'anul', 'curs_sem1', 'sem_sem1',
-                        'lab_sem1', 'curs_sem2', 'sem_sem2', 'lab_sem2', 'profesor']
+                        'lab_sem1', 'curs_sem2', 'sem_sem2', 'lab_sem2', 'titular']
+        field_attributes = {
+            'disc': {'name': 'Disciplina'},
+            'curs_sem1': {'name': 'Ore curs semestrul 1'},
+            'sem_sem1': {'name': 'Ore seminar semestrul 1'},
+            'lab_sem1': {'name': 'Ore laborator semestrul 1'},
+            'curs_sem2': {'name': 'Ore curs semestrul 2'},
+            'sem_sem2': {'name': 'Ore seminar semestrul 1'},
+            'lab_sem2': {'name': 'Ore laborator semestrul 1'}
+        }
+
+    class AdminProf(Admin):
+        list_display = ['disc', 'sectia', 'anul', 'curs_sem1', 'sem_sem1',
+                        'lab_sem1', 'curs_sem2', 'sem_sem2', 'lab_sem2']
+
+    class AdminProgram(Admin):
+        list_display = ['disc', 'anul', 'curs_sem1', 'sem_sem1',
+                        'lab_sem1', 'curs_sem2', 'sem_sem2', 'lab_sem2']
+

@@ -1,3 +1,4 @@
+from camelot.core.exception import UserException
 from rms.Model.ResurseUmane import Profesor
 
 __author__ = 'Roland'
@@ -33,11 +34,11 @@ class ImportState(Action):
 
         for i, file_name in enumerate(file_names):
             yield UpdateProgress(i, file_count)
-            print(file_name)
             f = open(file_name)
             info_prof = f.readline().split(";")[:-1]
-            print(info_prof)
-            prof = Profesor(**info_prof)
+            if session.query(Profesor).filter(Profesor.username == info_prof[0]).first() != None:
+                raise UserException("Exista deja profesorul "+info_prof[2])
+            prof = Profesor(*info_prof)
             session.add(prof)
             for line in f:
                 if line[-1] == ';':
@@ -54,7 +55,7 @@ class ImportState(Action):
                     session.add(oresup)
                 except ValueError:
                     disc = Discipline(*vals)
-                    disc.profesor = prof
+                    disc.titular = prof
                     session.add(disc)
         yield FlushSession(session)
         # begin refresh

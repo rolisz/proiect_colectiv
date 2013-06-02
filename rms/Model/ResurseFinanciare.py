@@ -7,54 +7,40 @@ from camelot.core.orm import Entity, ManyToOne, Session
 from sqlalchemy import Unicode, Date, Integer, Boolean, String
 
 #todo dropdown pt categorii
+
 class ResurseFinanciare(Entity):
     __tablename__ = 'resurse_financiare'
 
-    tip = Column('type', String(10))
-    valoare = Column(Integer, nullable=False, default=0)
+    valoare = Column(Integer, nullable=False)
     categorie = Column(Unicode(50))
     activitate = ManyToOne("Activitate")
-    __mapper_args__ = {
-        'polymorphic_on': tip,
-    }
 
     def __unicode__(self):
         return self.categorie or 'Unknown'
 
     class Admin(EntityAdmin):
-        verbose_name = 'ResurseFinanciare'
-        verbose_name_plural = 'ResurseFinanciare'
-        list_display = ['tip', 'valoare', 'categorie']
-        form_display = ['tip', 'valoare', 'categorie']
-
-        field_attributes = {'valoare': {'minimum': 0, 'maximum': 50000}}
-
-
-class Venituri(ResurseFinanciare):
-    __tablename__ = None
-
-    __mapper_args__ = {
-        'polymorphic_identity': 'venituri'
-    }
-
-    class Admin(EntityAdmin):
-        verbose_name = 'Venituri'
-        verbose_name_plural = 'Venituri'
-        list_display = ['tip', 'valoare', 'categorie']
-        form_display = ['tip', 'valoare', 'categorie']
+        verbose_name = 'Resursa Financiara'
+        verbose_name_plural = 'Resurse Financiare'
+        list_display = ['valoare', 'categorie']
+        field_attributes = {
+            'valoare': {'minimum': 0, 'maximum': 50000},
+            'categorie': {'choices': lambda o: [('Salarii', 'Salarii'), ('Mobilitati', 'Mobilitati'),
+                                                ('Cheltuieli logistice', 'Cheltuieli logistice')],
+                          'default': 'Salarii'}
+        }
 
 
-class Cheltuieli(ResurseFinanciare):
-    __tablename__ = None
 
-    __mapper_args__ = {
-        'polymorphic_identity': 'Cheltuieli'
-    }
-
-    class Admin(EntityAdmin):
-        verbose_name = 'Cheltuieli'
-        verbose_name_plural = 'Cheltuieli'
-        list_display = ['tip', 'valoare', 'categorie']
-        form_display = ['tip', 'valoare', 'categorie']
+# class Venituri(ResurseFinanciare):
+#     __tablename__ = None
+#
+#     __mapper_args__ = {
+#         'polymorphic_identity': 'venituri'
+#     }
+#
+#     class Admin(EntityAdmin):
+#         verbose_name = 'Venituri'
+#         verbose_name_plural = 'Venituri'
+#         list_display = ['valoare', 'categorie']
 
 

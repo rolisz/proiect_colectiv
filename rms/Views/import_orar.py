@@ -1,3 +1,5 @@
+from rms.Model.Discipline import Discipline
+
 __author__ = 'Roland'
 
 from camelot.admin.action import Action
@@ -41,6 +43,11 @@ class ImportOrar(Action):
                 orar = Orar(*vals)
                 print(orar)
                 session.add(orar)
+                disc = session.query(Discipline).filter(Discipline.disc==orar.disc).first()
+                if disc:
+                    orar.disciplina = disc
+                    session.flush()
+
         yield FlushSession(session)
         # begin refresh
         yield Refresh()

@@ -1,12 +1,11 @@
+from camelot.admin.not_editable_admin import not_editable_admin
 from sqlalchemy.schema import Column
 import sqlalchemy.types
 from camelot.admin.entity_admin import EntityAdmin
-from camelot.core.orm import Entity
+from camelot.core.orm import Entity, ManyToOne
 from sqlalchemy import Unicode, Date, Integer, Boolean, String
-from sqlalchemy.orm import relationship
-from sqlalchemy.schema import ForeignKey
 
-zile = {'Luni': 1, 'Marti': 2, 'Miercuri': 3, 'Joi': 4, ' Vineri': 5}
+zile = ['Luni', 'Marti', 'Miercuri', 'Joi', 'Vineri']
 
 class Orar(Entity):
     __tablename__ = 'orar'
@@ -18,12 +17,13 @@ class Orar(Entity):
     anul = Column(String(10), nullable=False)
     formatia = Column(String(5), nullable=False)
     tip = Column(Integer, nullable=False)
-    disciplina = Column(String(30), nullable=False)
+    disciplina = ManyToOne('Discipline')
+    disc = Column(String(20))
 
     def __init__(self, zi=None, ora=None, frecventa=None, sala=None,
                  anul=None, formatia=None, tip=None, disciplina=None):
         if zi:
-            self.zi = zile[zi]
+            self.zi = zile.index(zi) + 1
             self.ora = ora
             self.frecventa = frecventa
             self.sala = sala
@@ -37,18 +37,18 @@ class Orar(Entity):
                 self.tip = 3
             else:
                 raise Exception("Tip de ora invalid")
-            self.disciplina = disciplina
+            self.disc = disciplina
 
 
     def __unicode__(self):
-        return self.sala or 'Unknown'
+        return self.sala + str(self.disciplina) or 'Unknown'
 
     class Admin(EntityAdmin):
         verbose_name = 'Orar'
         verbose_name_plural = 'Orar'
         list_display = ['zi', 'ora', 'frecventa', 'sala', 'anul', 'formatia', 'tip', 'disciplina']
         field_attributes = {
-            'zi': {'choices': lambda o: [(v,k) for k,v in zile.items()]
+            'zi': {'choices': lambda o: [(k+1,v) for k,v in enumerate(zile)]
             },
             'frecventa': {'choices': lambda o: [(0, 'Saptamanal'),
                                                 (1, 'Saptamana para'),
@@ -57,18 +57,5 @@ class Orar(Entity):
                                           (2, 'Seminar'),
                                           (3, 'Curs')]}
         }
-    class Admin2(EntityAdmin):
-            verbose_name = 'Orar'
-            verbose_name_plural = 'Orar'
-            list_display = ['zi', 'ora', 'frecventa', 'sala', 'anul', 'formatia', 'tip', 'disciplina']
-            field_attributes = {    
-            'zi': {'choices': lambda o: [(v,k) for k,v in zile.items()]
-            },
-            'frecventa': {'choices': lambda o: [(0, 'Saptamanal'),
-                                                (1, 'Saptamana para'),
-                                                (2, 'Saptamana impara')]},
-            'tip': {'choices': lambda o: [(1, 'Laborator'),
-                                          (2, 'Seminar'),
-                                          (3, 'Curs')]}
-        }
-    Admin2 = not_editable_admin(Admin2)
+
+    AdminPublic = not_editable_admin(Admin)
