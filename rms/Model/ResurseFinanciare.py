@@ -26,8 +26,8 @@ class ResurseFinanciare(Entity):
         verbose_name_plural = 'ResurseFinanciare'
         list_display = ['tip', 'valoare', 'categorie']
         form_display = ['tip', 'valoare', 'categorie']
-        field_attributes = {'valoare': {'minimum': 0, 'maximum': 50000}
-        }
+
+        field_attributes = {'valoare': {'minimum': 0, 'maximum': 50000}}
 
 
 class Venituri(ResurseFinanciare):

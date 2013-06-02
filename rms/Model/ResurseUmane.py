@@ -8,8 +8,7 @@ from sqlalchemy.schema import ForeignKey
 
 class ResurseUmane(Entity):
     __tablename__ = 'resurse_umane'
-
-    username = Column(String(30))
+    username = Column(String(30), nullable=False)
     nume = Column(String(50))
     doctorat = Column(Boolean)
     functie = Column(String(30))
@@ -29,6 +28,14 @@ class ResurseUmane(Entity):
         verbose_name = 'Resurse Umane'
         verbose_name_plural = 'Resurse Umane'
         list_display = ['username', 'nume', 'doctorat', 'functie']
+
+    class Admin2(EntityAdmin):
+        verbose_name = 'Resursa Umane'
+        verbose_name_plural = 'Resurse Umane'
+        list_display = ['username', 'nume', 'doctorat', 'functie']
+
+    Admin2 = not_editable_admin(Admin2)
+
 
 class Student(ResurseUmane):
     __tablename__ = None

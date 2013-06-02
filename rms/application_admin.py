@@ -20,7 +20,6 @@ from rms.Views.ResurseDepartament import ObtineResurseDepartament
 from rms.Views.import_orar import ImportOrar
 from rms.Views.import_state import ImportState
 
-
 class MyApplicationAdmin(ApplicationAdmin):
     name = 'Resource Management System'
     application_url = 'https://github.com/rolisz/proiect_colectiv'

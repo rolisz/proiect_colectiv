@@ -84,11 +84,16 @@ class Activitate(Entity):
     class Admin3(EntityAdmin):
         verbose_name = 'Proiect Departament'
         verbose_name_plural = 'Proiecte Departament'
+
         list_display = ['nume', 'coordonator', 'tip']
 
         def get_query(self):
             session = Session
             return session.query(Activitate).filter(Activitate.confidentiala==False).filter(Activitate.aprobata==True)
+
+
+        form_actions = [None]
+
 
     Admin3 = not_editable_admin(Admin3)
 
