@@ -50,13 +50,13 @@ class ResursaLogistica(Entity):
         list_display = ['type']
         form_actions = [RaportResurse()]
 
-    class Admin2(EntityAdmin):
+    class AdminPublic(EntityAdmin):
         verbose_name = 'Resursa Logistica'
         verbose_name_plural = 'Resurse Logistice'
         list_display = ['id', 'type']
         form_actions = [RaportResurse()]
 
-    Admin2 = not_editable_admin(Admin2)
+    AdminPublic = not_editable_admin(AdminPublic, actions=False)
 
 class Sala(ResursaLogistica):
     __tablename__ = 'sali'

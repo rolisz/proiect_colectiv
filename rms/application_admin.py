@@ -27,32 +27,49 @@ class MyApplicationAdmin(ApplicationAdmin):
     author = 'Roland'
     domain = 'http://github.com'
 
+    # def get_toolbar_actions(self, area):
+    #     print(area)
+    #     return None
+    
     def get_sections(self):
         print(model.authentication.get_current_authentication().username)
         session = Session
         user = session.query(ResurseUmane).filter(
             ResurseUmane.username == model.authentication.get_current_authentication().username).first()
-        sectii = []
+        return [Section(_('Caracteristici publice'),
+                            self,
+                            Icon('tango/22x22/apps/system-users.png'),
+                            items=[OpenTableView(Activitate.Admin3(self,Activitate)),ObtineResurseDepartament()]),
+                Section(_('Caracteristici administrative'),
+                            self,
+                            Icon('tango/22x22/apps/system-users.png'),
+                            items=[ResurseUmane, ResurseFinanciare, ResursaLogistica,ImportOrar(), ImportState()]),
+                Section(_('Caracteristici pentru directorul de departament'),
+                            self,
+                            Icon('tango/22x22/apps/system-users.png'),
+                            items=[CalendarActivitatiAction(), OpenTableView(Activitate.Admin2(self,Activitate)), Task]),
+                Section(_('Caracteristici pentru cadre didactice'),
+                            self,
+                            Icon('tango/22x22/apps/system-users.png'),
+                            items=[ProgramStudiu, Activitate, Task])]
         if user is None or user.functie == 'Student':
             return [Section(_('Caracteristici publice'),
                             self,
                             Icon('tango/22x22/apps/system-users.png'),
-                            items=[Activitate, ResurseUmane, Granturi, ResurseFinanciare, ResursaLogistica,
-                                   CalendarActivitatiAction(), ProgramStudiu, ImportOrar()])]
+                            items=[OpenTableView(Activitate.Admin3(self,Activitate)),ObtineResurseDepartament])]
         if user.functie == 'Administrator':
             return [Section(_('Caracteristici administrative'),
                             self,
                             Icon('tango/22x22/apps/system-users.png'),
-                            items=[])]
+                            items=[ResurseUmane, ResurseFinanciare, ResursaLogistica,ImportOrar(), ImportState()])]
         if user.functie == 'Profesor':
-            return [Section(_('Caracteristici pentru directorul de departament'),
-                            self,
-                            Icon('tango/22x22/apps/system-users.png'),
-                            items=[ProgramStudiu])]
-        if user.functie == 'Director':
             return [Section(_('Caracteristici pentru cadre didactice'),
                             self,
                             Icon('tango/22x22/apps/system-users.png'),
-                            items=[Activitate, ResurseUmane, OpenTableView(Activitate.Admin3(self,Activitate)),
-                                   ImportOrar(),ImportState(),Orar, CalendarActivitatiAction()])]
+                            items=[CalendarActivitatiAction(), OpenTableView(Activitate.Admin2(self,Activitate)), Task])]
+        if user.functie == 'Director':
+            return [Section(_('Caracteristici pentru  directorul de departament'),
+                            self,
+                            Icon('tango/22x22/apps/system-users.png'),
+                            items=[ProgramStudiu, Activitate, Task])]
 

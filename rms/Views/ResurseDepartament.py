@@ -14,9 +14,9 @@ class ObtineResurseDepartamentGUI(ActionStep):
 
     def gui_run( self, gui_context):
         gui_context.workspace._tab_widget.clear()
-        reslogistice_table = ResursaLogistica.Admin2(gui_context.admin, ResursaLogistica).create_table_view(gui_context)
+        reslogistice_table = ResursaLogistica.AdminPublic(gui_context.admin, ResursaLogistica).create_table_view(gui_context)
         reslogistice_table.setObjectName('reslogistice_table')
-        resumane_table = ResurseUmane.Admin2(gui_context.admin, ResurseUmane).create_table_view(gui_context)
+        resumane_table = ResurseUmane.AdminPublic(gui_context.admin, ResurseUmane).create_table_view(gui_context)
         resumane_table.setObjectName('resumane_table')
-        gui_context.workspace._tab_widget.addTab(reslogistice_table, "Resurse Logistice")
         gui_context.workspace._tab_widget.addTab(resumane_table, "Resurse Umane")
+        gui_context.workspace._tab_widget.addTab(reslogistice_table, "Resurse Logistice")

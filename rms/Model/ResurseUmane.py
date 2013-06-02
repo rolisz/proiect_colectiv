@@ -29,24 +29,19 @@ class ResurseUmane(Entity):
         verbose_name_plural = 'Resurse Umane'
         list_display = ['username', 'nume', 'doctorat', 'functie']
 
-    class Admin2(EntityAdmin):
-        verbose_name = 'Resursa Umane'
-        verbose_name_plural = 'Resurse Umane'
-        list_display = ['username', 'nume', 'doctorat', 'functie']
-
-    Admin2 = not_editable_admin(Admin2)
+    AdminPublic = not_editable_admin(Admin, actions=False)
 
 
-class Student(ResurseUmane):
-    __tablename__ = None
-
-    __mapper_args__ = {
-        'polymorphic_identity': 'Student'
-    }
-    class Admin(EntityAdmin):
-        verbose_name = 'Student'
-        verbose_name_plural = 'Studenti'
-        list_display = ['username', 'nume', 'doctorat']
+# class Student(ResurseUmane):
+#     __tablename__ = None
+#
+#     __mapper_args__ = {
+#         'polymorphic_identity': 'Student'
+#     }
+#     class Admin(EntityAdmin):
+#         verbose_name = 'Student'
+#         verbose_name_plural = 'Studenti'
+#         list_display = ['username', 'nume', 'doctorat']
 
 
 class Profesor(ResurseUmane):
