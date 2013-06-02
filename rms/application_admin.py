@@ -54,5 +54,6 @@ class MyApplicationAdmin(ApplicationAdmin):
             return [Section(_('Caracteristici pentru cadre didactice'),
                             self,
                             Icon('tango/22x22/apps/system-users.png'),
-                            items=[Activitate, ResurseUmane, CalendarActivitatiAction()])]
+                            items=[Activitate, ResurseUmane, OpenTableView(Activitate.Admin3(self,Activitate)),
+                                   ImportOrar(),ImportState(),Orar, CalendarActivitatiAction()])]
 

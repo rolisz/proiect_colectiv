@@ -29,13 +29,6 @@ class ResurseFinanciare(Entity):
         field_attributes = {'valoare': {'minimum': 0, 'maximum': 50000}
         }
 
-    class Admin2(EntityAdmin):
-        verbose_name = 'Resursa Financiara'
-        verbose_name_plural = 'Resurse Financiare'
-        list_display = ['valoare', 'tip', 'categorie']
-
-    Admin2 = not_editable_admin(Admin2)
-
 
 class Venituri(ResurseFinanciare):
     __tablename__ = None

@@ -1,6 +1,7 @@
 from camelot.admin.action import Action, ActionStep
 from camelot.admin.not_editable_admin import not_editable_admin
 from camelot.core.sql import metadata
+from camelot.view.controls.modeltree import ModelTree, ModelItem
 from camelot.view.controls.tableview import TableView
 from camelot.view.forms import TabForm, Form
 from sqlalchemy.ext.declarative import declarative_base
@@ -52,6 +53,8 @@ class Activitate(Entity):
     aprobata = Column(Boolean)
     res_fin = OneToMany('ResurseFinanciare', inverse="activitate")
     res_logistice = ManyToMany('ResursaLogistica')
+
+    confidentiala = Column(Boolean)
     #todo adaugat faze activitate
     faze = OneToMany("FazeActivitate")
     def __unicode__(self):
@@ -60,8 +63,8 @@ class Activitate(Entity):
     class Admin(EntityAdmin):
         verbose_name = 'Activitate'
         verbose_name_plural = 'Activitati'
-        list_display = ['nume','aprobata']
-        form_display = TabForm([('Importante', Form(['nume', 'coordonator'])),
+        list_display = ['nume', 'coordonator', 'aprobata', 'confidentiala']
+        form_display = TabForm([('Importante', Form(['nume', 'coordonator', 'confidentiala'])),
                                 ('Participanti', Form(['membrii'])),
                                 ('Resurse', Form(['res_fin', 'res_logistice'])),
                                 ('Faze', Form(['faze']))
@@ -81,7 +84,11 @@ class Activitate(Entity):
     class Admin3(EntityAdmin):
         verbose_name = 'Proiect Departament'
         verbose_name_plural = 'Proiecte Departament'
-        list_display = ['nume', 'coordonator', 'aprobata', 'tip']
+        list_display = ['nume', 'coordonator', 'tip']
+
+        def get_query(self):
+            session = Session
+            return session.query(Activitate).filter(Activitate.confidentiala==False).filter(Activitate.aprobata==True)
 
     Admin3 = not_editable_admin(Admin3)
 
@@ -125,7 +132,9 @@ class CalendarActivitatiGUI(ActionStep):
 
     def gui_run(self, gui_context):
         gui_context.workspace._tab_widget.clear()
-        activi_table = Activitate.Admin2(gui_context.admin, Activitate).create_table_view(gui_context)
+        activi_table = ModelTree()
+        mi = ModelItem(activi_table,['Orar','Activitati'],['Orar','Activitati'])
+        activi_table.addTopLevelItem(mi)
         gui_context.workspace._tab_widget.addTab(activi_table, "Calendar activitate")
 
 

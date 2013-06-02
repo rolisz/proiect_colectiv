@@ -37,7 +37,7 @@ class ImportState(Action):
             f = open(file_name)
             info_prof = f.readline().split(";")[:-1]
             print(info_prof)
-            prof = Profesor(*info_prof)
+            prof = Profesor(**info_prof)
             session.add(prof)
             for line in f:
                 if line[-1] == ';':
