@@ -73,8 +73,18 @@ class Activitate(Entity):
 
         def get_query(self):
             session = Session
-            return session.query(Activitate).filter(Activitate.confidentiala == False).filter(
-                Activitate.aprobata == True)
+            return session.query(self.entity).filter(self.entity.confidentiala == False).filter(
+                self.entity.aprobata == True)
+
+        def get_related_admin(self, cls):
+            if cls == Granturi:
+                return Granturi.AdminPublic(self, cls)
+            elif cls == Cercuri:
+                return Cercuri.AdminPublic(self, cls)
+            elif cls == EvenimenteAdministrative:
+                return EvenimenteAdministrative.AdminPublic(self, cls)
+            else:
+                return cls.Admin
 
 
     AdminPublic = not_editable_admin(AdminPublic)
@@ -92,8 +102,8 @@ class Granturi(Activitate):
         verbose_name_plural = 'Granturi'
 
     class AdminPublic(Activitate.AdminPublic):
-        verbose_name = 'Proiect Departament'
-        verbose_name_plural = 'Proiecte Departament'
+        verbose_name = 'Granturi Departament'
+        verbose_name_plural = 'Granturi Departament'
 
         list_display = ['nume', 'coordonator', 'descriere']
 
@@ -102,8 +112,8 @@ class Granturi(Activitate):
             return session.query(Granturi).filter(Granturi.confidentiala == False).filter(
                 Granturi.aprobata == True)
 
-
     AdminPublic = not_editable_admin(AdminPublic)
+
 class Cercuri(Activitate):
     __tablename__ = None
 
@@ -120,6 +130,13 @@ class Cercuri(Activitate):
         form_display = TabForm([('Importante', Form(['nume', 'coordonator', 'descriere','program_studiu'])),
                                 ('Participanti', Form(['membrii']))])
 
+    class AdminPublic(Activitate.AdminPublic):
+        verbose_name = 'Cerc Departament'
+        verbose_name_plural = 'Cercuri Departament'
+
+        list_display = ['nume', 'coordonator', 'program_studiu', 'descriere']
+
+
 
 class EvenimenteAdministrative(Activitate):
     __tablename__ = None
@@ -129,5 +146,9 @@ class EvenimenteAdministrative(Activitate):
     }
 
     class Admin(Activitate.Admin):
+        verbose_name = 'Eveniment administrativ'
+        verbose_name_plural = 'Evenimente administrative'
+
+    class AdminPublic(Activitate.AdminPublic):
         verbose_name = 'Eveniment administrativ'
         verbose_name_plural = 'Evenimente administrative'

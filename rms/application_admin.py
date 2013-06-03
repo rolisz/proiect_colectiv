@@ -31,7 +31,11 @@ class MyApplicationAdmin(ApplicationAdmin):
     # def get_toolbar_actions(self, area):
     #     print(area)
     #     return None
-    
+
+    # def get_related_admin(self, cls):
+    #     print(cls)
+    #     return cls.Admin
+
     def get_sections(self):
         print(model.authentication.get_current_authentication().username)
         session = Session
